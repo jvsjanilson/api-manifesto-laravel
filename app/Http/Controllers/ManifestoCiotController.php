@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Funcoes;
-use App\Models\ManifestoAutorizacao;
-
+use App\Models\ManifestoCiot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
-class ManifestoAutorizacaoController extends Controller
+class ManifestoCiotController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,8 +29,8 @@ class ManifestoAutorizacaoController extends Controller
      */
     public function store(Request $request)
     {
-
         $validationData = Validator::make($request->all(), [
+            'ciot' => 'required',
             'cpfcnpj' => 'required',
             'manifesto_id' => 'required'
         ]);
@@ -44,39 +43,26 @@ class ManifestoAutorizacaoController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        $data = $request->only('manifesto_id', 'cpfcnpj');
+        $data = $request->only('manifesto_id', 'ciot', 'cpfcnpj');
+        // $data['cpfcnpj'] = Funcoes::disFormatCPFCNPJ($data['cpfcnpj']);
         $data['cpfcnpj'] = $data['cpfcnpj'];
 
-        $find = ManifestoAutorizacao::where('cpfcnpj', $data['cpfcnpj'])
+        $find = ManifestoCiot::where('ciot', $data['ciot'])
             ->where('manifesto_id', $data['manifesto_id'])
             ->first();
 
         if (isset($find)) {
             return response()->json(
                 [
-                    'msg' => 'CPF/CNPJ já lançado'
+                    'msg' => 'Ciot já lançado'
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
 
-
-        $count = ManifestoAutorizacao::select(DB::raw('count(*) as total'))
-            ->where('manifesto_id', $data['manifesto_id'])
-            ->get()[0]['total'];
-
-        if ($count >= 10)
-        {
-            return response()->json(
-                [
-                    'msg' => 'Número máximo é 10.'
-                ],
-                Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
 
         try {
-            $create = ManifestoAutorizacao::create($data);
+            $create = ManifestoCiot::create($data);
             return response()->json(
                 [
                     'inserted' => true,
@@ -93,7 +79,6 @@ class ManifestoAutorizacaoController extends Controller
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
-
     }
 
     /**
@@ -127,8 +112,7 @@ class ManifestoAutorizacaoController extends Controller
      */
     public function destroy($id)
     {
-
-        $reg = ManifestoAutorizacao::find($id);
+        $reg = ManifestoCiot::find($id);
 
         if ( !isset($reg)) {
             return response()->json(
