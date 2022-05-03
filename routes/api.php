@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\EstadoController;
+use App\Http\Controllers\ManifestoAutorizacaoController;
 use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\PaisController;
 use Illuminate\Http\Request;
@@ -27,3 +28,4 @@ Route::resource('paises', PaisController::class);
 Route::resource('estados', EstadoController::class);
 Route::resource('municipios', MunicipioController::class);
 Route::resource('empresas', EmpresaController::class);
+Route::resource('autorizacaos', ManifestoAutorizacaoController::class);

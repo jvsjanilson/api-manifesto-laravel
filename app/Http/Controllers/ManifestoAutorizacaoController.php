@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Funcoes;
 use App\Models\ManifestoAutorizacao;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class ManifestoAutorizacaoController extends Controller
@@ -28,6 +30,20 @@ class ManifestoAutorizacaoController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validationData = Validator::make($request->all(), [
+            'cpfcnpj' => 'required',
+            'manifesto_id' => 'required'
+        ]);
+
+        if ($validationData->fails()) {
+            return response()->json([
+                'inserted' => false,
+                'msg' => 'Erro de validação',
+                'errors' =>  $validationData->errors()
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
         $data = $request->only('manifesto_id', 'cpfcnpj');
         $data['cpfcnpj'] = Funcoes::disFormatCPFCNPJ($data['cpfcnpj']);
 
@@ -59,9 +75,8 @@ class ManifestoAutorizacaoController extends Controller
             );
         }
 
-        $create = ManifestoAutorizacao::create($data);
-
-        if (isset($create)) {
+        try {
+            $create = ManifestoAutorizacao::create($data);
             return response()->json(
                 [
                     'inserted' => true,
@@ -69,11 +84,11 @@ class ManifestoAutorizacaoController extends Controller
                 ],
                 Response::HTTP_CREATED
             );
-        } else {
+        } catch (\Exception $e) {
             return response()->json(
                 [
                     'inserted' => false,
-                    'msg' => 'Error ao inserir'
+                    'msg' => env('APP_DEBUG') == true ? 'Error ao inserir: ' . $e->getMessage() : 'Error ao inserir'
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
@@ -112,7 +127,18 @@ class ManifestoAutorizacaoController extends Controller
      */
     public function destroy($id)
     {
+
         $reg = ManifestoAutorizacao::find($id);
+
+        if ( !isset($reg)) {
+            return response()->json(
+                [
+                    'msg'=> 'Registro não encontrado.',
+                    'deleted' => false
+                ],
+                Response::HTTP_NOT_FOUND
+            );
+        }
 
         try {
             $reg->delete();
@@ -126,7 +152,7 @@ class ManifestoAutorizacaoController extends Controller
         } catch (\Exception $e) {
             return response()->json(
                 [
-                    'msg'=> $e->getMessage(),
+                    'msg'=> env('APP_DEBUG') == true ? 'Error ao deletar: ' . $e->getMessage() : 'Error ao deletar',
                     'deleted' => false
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
