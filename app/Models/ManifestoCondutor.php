@@ -14,4 +14,9 @@ class ManifestoCondutor extends Model
     {
         return Funcoes::formatCPFCNPJ($value);
     }
+
+    public function setCpfAttribute($value)
+    {
+        $this->attributes['cpf'] =  Funcoes::disFormatCPFCNPJ($value);
+    }
 }

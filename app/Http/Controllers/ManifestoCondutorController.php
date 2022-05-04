@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Funcoes;
 use App\Models\ManifestoCondutor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -45,7 +46,7 @@ class ManifestoCondutorController extends Controller
         $data = $request->only('nome','cpf', 'manifesto_id');
 
 
-        $find = ManifestoCondutor::where('cpf', $data['cpf'])
+        $find = ManifestoCondutor::where('cpf', Funcoes::disFormatCPFCNPJ($data['cpf']))
             ->where('manifesto_id', $data['manifesto_id'])
             ->first();
 

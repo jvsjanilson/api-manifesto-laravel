@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Funcoes;
 use App\Models\ManifestoAutorizacao;
 
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class ManifestoAutorizacaoController extends Controller
 
         $data = $request->only('manifesto_id', 'cpfcnpj');
 
-        $find = ManifestoAutorizacao::where('cpfcnpj', $data['cpfcnpj'])
+        $find = ManifestoAutorizacao::where('cpfcnpj', Funcoes::disFormatCPFCNPJ($data['cpfcnpj']))
             ->where('manifesto_id', $data['manifesto_id'])
             ->first();
 
