@@ -45,7 +45,6 @@ class ManifestoAutorizacaoController extends Controller
         }
 
         $data = $request->only('manifesto_id', 'cpfcnpj');
-        $data['cpfcnpj'] = $data['cpfcnpj'];
 
         $find = ManifestoAutorizacao::where('cpfcnpj', $data['cpfcnpj'])
             ->where('manifesto_id', $data['manifesto_id'])

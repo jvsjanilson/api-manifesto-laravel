@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Models\ManifestoCiot;
+use App\Models\ManifestoCondutor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
-class ManifestoCiotController extends Controller
+class ManifestoCondutorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -29,9 +29,9 @@ class ManifestoCiotController extends Controller
     public function store(Request $request)
     {
         $validationData = Validator::make($request->all(), [
-            'ciot' => 'required',
-            'cpfcnpj' => 'required',
-            'manifesto_id' => 'required'
+            'manifesto_id' => 'required',
+            'nome' => 'required',
+            'cpf' => 'required',
         ]);
 
         if ($validationData->fails()) {
@@ -42,25 +42,38 @@ class ManifestoCiotController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        $data = $request->only('manifesto_id', 'ciot', 'cpfcnpj');
-        $data['cpfcnpj'] = $data['cpfcnpj'];
+        $data = $request->only('nome','cpf', 'manifesto_id');
 
-        $find = ManifestoCiot::where('ciot', $data['ciot'])
+
+        $find = ManifestoCondutor::where('cpf', $data['cpf'])
             ->where('manifesto_id', $data['manifesto_id'])
             ->first();
 
         if (isset($find)) {
             return response()->json(
                 [
-                    'msg' => 'Ciot já lançado'
+                    'msg' => 'CPF já lançado'
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
 
+        $count = ManifestoCondutor::select(DB::raw('count(*) as total'))
+            ->where('manifesto_id', $data['manifesto_id'])
+            ->get()[0]['total'];
+
+        if ($count >= 10)
+        {
+            return response()->json(
+                [
+                    'msg' => 'Número máximo é 10.'
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
 
         try {
-            $create = ManifestoCiot::create($data);
+            $create = ManifestoCondutor::create($data);
             return response()->json(
                 [
                     'inserted' => true,
@@ -110,9 +123,9 @@ class ManifestoCiotController extends Controller
      */
     public function destroy($id)
     {
-        $reg = ManifestoCiot::find($id);
+        $reg = ManifestoCondutor::find($id);
 
-        if ( !isset($reg)) {
+        if (!isset($reg)) {
             return response()->json(
                 [
                     'msg'=> 'Registro não encontrado.',
