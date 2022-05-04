@@ -5,6 +5,7 @@ use App\Http\Controllers\EstadoController;
 use App\Http\Controllers\ManifestoAutorizacaoController;
 use App\Http\Controllers\ManifestoCiotController;
 use App\Http\Controllers\ManifestoCondutorController;
+use App\Http\Controllers\ManifestoContratanteController;
 use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\PaisController;
 use Illuminate\Http\Request;
@@ -46,3 +47,7 @@ Route::resource('condutors', ManifestoCondutorController::class)->only([
     'destroy'
 ]);
 
+Route::resource('contratantes', ManifestoContratanteController::class)->only([
+    'store',
+    'destroy'
+]);

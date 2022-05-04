@@ -14,4 +14,9 @@ class ManifestoContratante extends Model
     {
         return Funcoes::formatCPFCNPJ($value);
     }
+
+    public function setCpfcnpjAttribute($value)
+    {
+        $this->attributes['cpfcnpj'] =  Funcoes::disFormatCPFCNPJ($value);
+    }
 }
