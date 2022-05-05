@@ -7,6 +7,7 @@ use App\Http\Controllers\ManifestoCiotController;
 use App\Http\Controllers\ManifestoCondutorController;
 use App\Http\Controllers\ManifestoContratanteController;
 use App\Http\Controllers\ManifestoCteController;
+use App\Http\Controllers\ManifestoLacreController;
 use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\PaisController;
 use Illuminate\Http\Request;
@@ -57,3 +58,13 @@ Route::resource('ctes', ManifestoCteController::class)->only([
     'store',
     'destroy'
 ]);
+
+Route::resource('lacres', ManifestoLacreController::class)->only([
+    'store',
+    'destroy'
+]);
+
+
+
+
+
