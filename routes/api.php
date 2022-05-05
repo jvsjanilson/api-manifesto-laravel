@@ -1,17 +1,20 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\PaisController;
 use App\Http\Controllers\EstadoController;
+use App\Http\Controllers\MunicipioController;
+
 use App\Http\Controllers\ManifestoAutorizacaoController;
 use App\Http\Controllers\ManifestoCiotController;
 use App\Http\Controllers\ManifestoCondutorController;
 use App\Http\Controllers\ManifestoContratanteController;
 use App\Http\Controllers\ManifestoCteController;
 use App\Http\Controllers\ManifestoLacreController;
-use App\Http\Controllers\MunicipioController;
-use App\Http\Controllers\PaisController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ManifestoMunicipioCarregamentoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +63,11 @@ Route::resource('ctes', ManifestoCteController::class)->only([
 ]);
 
 Route::resource('lacres', ManifestoLacreController::class)->only([
+    'store',
+    'destroy'
+]);
+
+Route::resource('municipio-carregamentos', ManifestoMunicipioCarregamentoController::class)->only([
     'store',
     'destroy'
 ]);

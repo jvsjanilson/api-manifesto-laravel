@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ManifestoLacre;
+use App\Models\ManifestoMunicipioCarregamento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
-class ManifestoLacreController extends Controller
+class ManifestoMunicipioCarregamentoController extends Controller
 {
+
     /**
      * Store a newly created resource in storage.
      *
@@ -18,8 +20,9 @@ class ManifestoLacreController extends Controller
     public function store(Request $request)
     {
         $validationData = Validator::make($request->all(), [
-            'manifesto_id' => 'required',
-            'numero' => 'required',
+            'estado_id' => 'required',
+            'municipio_id' => 'required',
+            'manifesto_id' => 'required'
         ]);
 
         if ($validationData->fails()) {
@@ -30,23 +33,39 @@ class ManifestoLacreController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        $data = $request->only('manifesto_id', 'numero');
+        $data = $request->only('manifesto_id', 'estado_id', 'municipio_id');
 
-        $find = ManifestoLacre::where('numero', $data['numero'])
-            ->where('manifesto_id', $data['manifesto_id'])
+        $find = ManifestoMunicipioCarregamento::where('manifesto_id', $data['manifesto_id'])
+            ->where('estado_id', $data['estado_id'])
+            ->where('municipio_id', $data['municipio_id'])
             ->first();
 
         if (isset($find)) {
             return response()->json(
                 [
-                    'msg' => 'Número do lacre já lançado'
+                    'msg' => 'Município já lançado'
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+
+
+        $count = ManifestoMunicipioCarregamento::select(DB::raw('count(*) as total'))
+            ->where('manifesto_id', $data['manifesto_id'])
+            ->get()[0]['total'];
+
+        if ($count >= 50)
+        {
+            return response()->json(
+                [
+                    'msg' => 'Número máximo é 50.'
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
 
         try {
-            $create = ManifestoLacre::create($data);
+            $create = ManifestoMunicipioCarregamento::create($data);
             return response()->json(
                 [
                     'inserted' => true,
@@ -64,7 +83,6 @@ class ManifestoLacreController extends Controller
             );
         }
     }
-
 
 
     /**
@@ -87,7 +105,7 @@ class ManifestoLacreController extends Controller
      */
     public function destroy($id)
     {
-        $reg = ManifestoLacre::find($id);
+        $reg = ManifestoMunicipioCarregamento::find($id);
 
         if ( !isset($reg)) {
             return response()->json(
