@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Constantes\Limite;
 
 class ManifestoAutorizacaoController extends Controller
 {
@@ -55,11 +56,11 @@ class ManifestoAutorizacaoController extends Controller
             ->where('manifesto_id', $data['manifesto_id'])
             ->get()[0]['total'];
 
-        if ($count >= 10)
+        if ($count >= Limite::NUMERO_MAXIMO_AUTORIZACAO_DOWNLOAD)
         {
             return response()->json(
                 [
-                    'msg' => 'Número máximo é 10.'
+                    'msg' => 'Número máximo é ' . strval(Limite::NUMERO_MAXIMO_AUTORIZACAO_DOWNLOAD). '.'
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );

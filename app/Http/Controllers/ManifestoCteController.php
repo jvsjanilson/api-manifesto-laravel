@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Constantes\Limite;
 
 class ManifestoCteController extends Controller
 {
@@ -63,11 +64,11 @@ class ManifestoCteController extends Controller
             ->where('manifesto_id', $data['manifesto_id'])
             ->get()[0]['total'];
 
-        if ($count >= 100)
+        if ($count >= Limite::NUMERO_MAXIMO_CTE)
         {
             return response()->json(
                 [
-                    'msg' => 'Número máximo é 100.'
+                    'msg' => 'Número máximo é ' . strval(Limite::NUMERO_MAXIMO_CTE). '.'
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );

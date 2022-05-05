@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
+use App\Constantes\Limite;
 
 class ManifestoMunicipioCarregamentoController extends Controller
 {
@@ -54,11 +55,11 @@ class ManifestoMunicipioCarregamentoController extends Controller
             ->where('manifesto_id', $data['manifesto_id'])
             ->get()[0]['total'];
 
-        if ($count >= 50)
+        if ($count >= Limite::NUMERO_MAXIMO_MUNICIPIO_CARREGAMENTO)
         {
             return response()->json(
                 [
-                    'msg' => 'Número máximo é 50.'
+                    'msg' => 'Número máximo é ' .strval(Limite::NUMERO_MAXIMO_MUNICIPIO_CARREGAMENTO) . '.'
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
