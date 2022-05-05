@@ -15,6 +15,7 @@ use App\Http\Controllers\ManifestoContratanteController;
 use App\Http\Controllers\ManifestoCteController;
 use App\Http\Controllers\ManifestoLacreController;
 use App\Http\Controllers\ManifestoMunicipioCarregamentoController;
+use App\Http\Controllers\ManifestoMunicipioDescarregamentoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,11 @@ Route::resource('lacres', ManifestoLacreController::class)->only([
 ]);
 
 Route::resource('municipio-carregamentos', ManifestoMunicipioCarregamentoController::class)->only([
+    'store',
+    'destroy'
+]);
+
+Route::resource('municipio-descarregamentos', ManifestoMunicipioDescarregamentoController::class)->only([
     'store',
     'destroy'
 ]);
