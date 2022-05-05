@@ -6,6 +6,7 @@ use App\Http\Controllers\ManifestoAutorizacaoController;
 use App\Http\Controllers\ManifestoCiotController;
 use App\Http\Controllers\ManifestoCondutorController;
 use App\Http\Controllers\ManifestoContratanteController;
+use App\Http\Controllers\ManifestoCteController;
 use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\PaisController;
 use Illuminate\Http\Request;
@@ -27,10 +28,10 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::resource('paises', PaisController::class);
-Route::resource('estados', EstadoController::class);
-Route::resource('municipios', MunicipioController::class);
-Route::resource('empresas', EmpresaController::class);
+//Route::resource('paises', PaisController::class);
+// Route::resource('estados', EstadoController::class);
+// Route::resource('municipios', MunicipioController::class);
+// Route::resource('empresas', EmpresaController::class);
 
 Route::resource('autorizacaos', ManifestoAutorizacaoController::class)->only([
     'store',
@@ -48,6 +49,11 @@ Route::resource('condutors', ManifestoCondutorController::class)->only([
 ]);
 
 Route::resource('contratantes', ManifestoContratanteController::class)->only([
+    'store',
+    'destroy'
+]);
+
+Route::resource('ctes', ManifestoCteController::class)->only([
     'store',
     'destroy'
 ]);
