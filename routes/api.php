@@ -17,6 +17,7 @@ use App\Http\Controllers\ManifestoLacreController;
 use App\Http\Controllers\ManifestoMunicipioCarregamentoController;
 use App\Http\Controllers\ManifestoMunicipioDescarregamentoController;
 use App\Http\Controllers\ManifestoNfeController;
+use App\Http\Controllers\ManifestoPedagioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +81,11 @@ Route::resource('municipio-descarregamentos', ManifestoMunicipioDescarregamentoC
 ]);
 
 Route::resource('nfes', ManifestoNfeController::class)->only([
+    'store',
+    'destroy'
+]);
+
+Route::resource('pedagios', ManifestoPedagioController::class)->only([
     'store',
     'destroy'
 ]);
