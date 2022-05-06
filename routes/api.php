@@ -16,6 +16,7 @@ use App\Http\Controllers\ManifestoCteController;
 use App\Http\Controllers\ManifestoLacreController;
 use App\Http\Controllers\ManifestoMunicipioCarregamentoController;
 use App\Http\Controllers\ManifestoMunicipioDescarregamentoController;
+use App\Http\Controllers\ManifestoNfeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +37,7 @@ use App\Http\Controllers\ManifestoMunicipioDescarregamentoController;
 //Route::resource('paises', PaisController::class);
 // Route::resource('estados', EstadoController::class);
 // Route::resource('municipios', MunicipioController::class);
-// Route::resource('empresas', EmpresaController::class);
+ //Route::resource('empresas', EmpresaController::class);
 
 Route::resource('autorizacaos', ManifestoAutorizacaoController::class)->only([
     'store',
@@ -74,6 +75,11 @@ Route::resource('municipio-carregamentos', ManifestoMunicipioCarregamentoControl
 ]);
 
 Route::resource('municipio-descarregamentos', ManifestoMunicipioDescarregamentoController::class)->only([
+    'store',
+    'destroy'
+]);
+
+Route::resource('nfes', ManifestoNfeController::class)->only([
     'store',
     'destroy'
 ]);

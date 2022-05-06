@@ -8,4 +8,5 @@ class Limite {
     public const NUMERO_MAXIMO_AUTORIZACAO_DOWNLOAD = 10;
     public const NUMERO_MAXIMO_CONDUTOR = 10;
     public const NUMERO_MAXIMO_CTE = 100;
+    public const NUMERO_MAXIMO_NFE = 100;
 }
