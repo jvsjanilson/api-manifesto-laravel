@@ -18,6 +18,7 @@ use App\Http\Controllers\ManifestoMunicipioCarregamentoController;
 use App\Http\Controllers\ManifestoMunicipioDescarregamentoController;
 use App\Http\Controllers\ManifestoNfeController;
 use App\Http\Controllers\ManifestoPedagioController;
+use App\Http\Controllers\ManifestoPercursoEstadoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +87,11 @@ Route::resource('nfes', ManifestoNfeController::class)->only([
 ]);
 
 Route::resource('pedagios', ManifestoPedagioController::class)->only([
+    'store',
+    'destroy'
+]);
+
+Route::resource('percurso-estados', ManifestoPercursoEstadoController::class)->only([
     'store',
     'destroy'
 ]);
