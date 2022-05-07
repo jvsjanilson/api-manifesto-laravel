@@ -19,6 +19,7 @@ use App\Http\Controllers\ManifestoMunicipioDescarregamentoController;
 use App\Http\Controllers\ManifestoNfeController;
 use App\Http\Controllers\ManifestoPedagioController;
 use App\Http\Controllers\ManifestoPercursoEstadoController;
+use App\Http\Controllers\ManifestoSeguroController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +96,12 @@ Route::resource('percurso-estados', ManifestoPercursoEstadoController::class)->o
     'store',
     'destroy'
 ]);
+
+Route::resource('seguros', ManifestoSeguroController::class)->only([
+    'store',
+    'destroy'
+]);
+
 
 
 
