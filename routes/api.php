@@ -19,6 +19,7 @@ use App\Http\Controllers\ManifestoMunicipioDescarregamentoController;
 use App\Http\Controllers\ManifestoNfeController;
 use App\Http\Controllers\ManifestoPedagioController;
 use App\Http\Controllers\ManifestoPercursoEstadoController;
+use App\Http\Controllers\ManifestoSeguroAverbacaoController;
 use App\Http\Controllers\ManifestoSeguroController;
 
 /*
@@ -101,6 +102,13 @@ Route::resource('seguros', ManifestoSeguroController::class)->only([
     'store',
     'destroy'
 ]);
+
+Route::resource('seguro-averbacaos', ManifestoSeguroAverbacaoController::class)->only([
+    'store',
+    'destroy'
+]);
+
+Route::get('seguro-averbacao/{manifesto}/{seguro}', [ManifestoSeguroAverbacaoController::class,'list']);
 
 
 
