@@ -21,6 +21,7 @@ use App\Http\Controllers\ManifestoPedagioController;
 use App\Http\Controllers\ManifestoPercursoEstadoController;
 use App\Http\Controllers\ManifestoSeguroAverbacaoController;
 use App\Http\Controllers\ManifestoSeguroController;
+use App\Http\Controllers\ManifestoReboqueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -110,7 +111,10 @@ Route::resource('seguro-averbacaos', ManifestoSeguroAverbacaoController::class)-
 
 Route::get('seguro-averbacao/{manifesto}/{seguro}', [ManifestoSeguroAverbacaoController::class,'list']);
 
-
+Route::resource('reboques', ManifestoReboqueController::class)->only([
+    'store',
+    'destroy'
+]);
 
 
 

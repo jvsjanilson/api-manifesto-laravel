@@ -43,7 +43,6 @@ class ManifestoCiotController extends Controller
         }
 
         $data = $request->only('manifesto_id', 'ciot', 'cpfcnpj');
-        $data['cpfcnpj'] = $data['cpfcnpj'];
 
         $find = ManifestoCiot::where('ciot', $data['ciot'])
             ->where('manifesto_id', $data['manifesto_id'])
