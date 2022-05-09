@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Constantes\Limite;
 use App\Models\Funcoes;
 
-class AutorizacaoRepository extends Repository
+class AutorizacaoDownloadRepository extends Repository
 {
     public function __construct(ManifestoAutorizacao $model)
     {

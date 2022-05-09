@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\AutorizacaoRepository;
+use App\Repositories\AutorizacaoDownloadRepository;
 use Illuminate\Http\Request;
 
 class ManifestoAutorizacaoController extends Controller
@@ -10,7 +10,7 @@ class ManifestoAutorizacaoController extends Controller
 
     private $repository;
 
-    public function __construct(AutorizacaoRepository $repository)
+    public function __construct(AutorizacaoDownloadRepository $repository)
     {
         $this->repository = $repository;
     }
