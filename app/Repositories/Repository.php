@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Request;
 
 abstract class Repository {
 
@@ -12,6 +13,66 @@ abstract class Repository {
     public function __construct(Model $model)
     {
         $this->model = $model;
+    }
+
+    public function index()
+    {
+        $regs = $this->model
+            ->paginate(config('app.paginate_number'));
+        return response()->json($regs);
+    }
+
+    public function show($id)
+    {
+        try {
+            $reg = $this->model->find($id);
+            return response()->json($reg, Response::HTTP_OK);
+
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'code' => $e->getCode(),
+                    'msg'=> $e->getMessage()
+                ]
+                ,Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        try {
+            $res = $this->model->create($data);
+            return response()->json(['id'=> $res->id],Response::HTTP_CREATED);
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'inserted' => false,
+                    'msg' => env('APP_DEBUG') == true ? 'Error ao inserir: ' . $e->getMessage() : 'Error ao inserir'
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $inputs = $request->all();
+
+        try {
+            $reg = $this->model->find($id);
+            $reg->update($inputs);
+            return response()->json(['msg' => 'Atualizado com sucesso.'], Response::HTTP_OK);
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'code' => $e->getCode(),
+                    'msg'=> $e->getMessage()
+                ]
+                ,Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
     }
 
     public function destroy($id)
@@ -46,30 +107,6 @@ abstract class Repository {
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
-    }
-
-    public function show($id)
-    {
-        try {
-            $reg = $this->model->find($id);
-            return response()->json($reg, Response::HTTP_OK);
-
-        } catch (\Exception $e) {
-            return response()->json(
-                [
-                    'code' => $e->getCode(),
-                    'msg'=> $e->getMessage()
-                ]
-                ,Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
-    }
-
-    public function index()
-    {
-        $regs = $this->model
-            ->paginate(config('app.paginate_number'));
-        return response()->json($regs);
     }
 
 }

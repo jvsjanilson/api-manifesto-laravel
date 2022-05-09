@@ -2,132 +2,61 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Empresa;
+
+use App\Repositories\EmpresaRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class EmpresaController extends Controller
 {
 
-    private $model;
+    private $repository;
 
-    /**
-     * Constructor of class
-     */
-    public function __construct(Empresa $model)
+    public function __construct(EmpresaRepository $repository)
     {
-        $this->model = $model;
+        $this->repository = $repository;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $regs = $this->model
-            ->select(
-                    'empresas.id', 'empresas.nome', 'empresas.cnpj', 'estados.uf',
-                    'municipios.nome as nome_municipio',
-                    'ativo'
-                )
-            ->join('estados', 'estados.id', '=', 'empresas.estado_id')
-            ->join('municipios', 'municipios.id', '=','empresas.municipio_id')
-            ->paginate(config('app.paginate_number'));
-        return response()->json($regs);
+        return $this->repository->index();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $data = $request->all();
-        try {
-            $res = $this->model->create($data);
-            return response()->json(['id'=> $res->id],201);
-        } catch (\Exception $e) {
-            return response()->json(
-                [
-                    'code' => $e->getCode(),
-                    'msg'=> $e->getMessage()
-                ]
-                ,500
-            );
+        $validationData = Validator::make($request->all(),
+            [
+                'nome' => 'required',
+                'cnpj' => 'required',
+            ],
+            [
+                'required' => 'O :attribute é obrigatório',
+            ],
+            [
+                'nome' => 'Nome',
+                'cnpj' => 'CNPJ'
+            ]
+        );
+
+        if ($validationData->fails()) {
+            return response()->json([
+                'inserted' => false,
+                'msg' => 'Erro de validação',
+                'errors' =>  $validationData->errors()
+            ], Response::HTTP_BAD_REQUEST);
         }
+
+        return $this->repository->store($request);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        try {
-            $reg = $this->model->find($id);
-            return response()->json($reg, 200);
-
-        } catch (\Exception $e) {
-            return response()->json(
-                [
-                    'code' => $e->getCode(),
-                    'msg'=> $e->getMessage()
-                ]
-                ,500
-            );
-        }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        $inputs = $request->all();
-
-        try {
-            $reg = $this->model->find($id);
-            $reg->update($inputs);
-            return response()->json(['msg' => 'Atualizado com sucesso.']);
-        } catch (\Exception $e) {
-            return response()->json(
-                [
-                    'code' => $e->getCode(),
-                    'msg'=> $e->getMessage()
-                ]
-                ,500
-            );
-        }
+        return $this->repository->update($request, $id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        try {
-            $reg = $this->model->find($id);
-            $reg->delete();
-        } catch (\Exception $e) {
-            return response()->json(
-                [
-                    'code' => $e->getCode(),
-                    'msg'=> $e->getMessage()
-                ]
-                ,500
-            );
-        }
+        return $this->repository->destroy($id);
     }
 }

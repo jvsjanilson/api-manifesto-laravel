@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\PaisController;
 use App\Http\Controllers\EstadoController;
@@ -42,7 +40,7 @@ use App\Http\Controllers\ManifestoReboqueController;
 Route::resource('paises', PaisController::class);
 Route::resource('estados', EstadoController::class);
 Route::resource('municipios', MunicipioController::class);
- //Route::resource('empresas', EmpresaController::class);
+Route::resource('empresas', EmpresaController::class);
 
 Route::resource('autorizacaos', ManifestoAutorizacaoController::class)->only([
     'store',
