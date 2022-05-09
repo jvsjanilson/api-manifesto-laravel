@@ -60,7 +60,7 @@ abstract class Repository {
                     'code' => $e->getCode(),
                     'msg'=> $e->getMessage()
                 ]
-                ,500
+                ,Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
     }
