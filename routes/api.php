@@ -39,9 +39,9 @@ use App\Http\Controllers\ManifestoReboqueController;
 // });
 
 
-//Route::resource('paises', PaisController::class);
-// Route::resource('estados', EstadoController::class);
-// Route::resource('municipios', MunicipioController::class);
+Route::resource('paises', PaisController::class);
+Route::resource('estados', EstadoController::class);
+Route::resource('municipios', MunicipioController::class);
  //Route::resource('empresas', EmpresaController::class);
 
 Route::resource('autorizacaos', ManifestoAutorizacaoController::class)->only([

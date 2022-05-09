@@ -20,6 +20,11 @@ class PaisController extends Controller
         return $this->repository->store($request);
     }
 
+    public function index()
+    {
+        return $this->repository->index();
+    }
+
     public function show($id)
     {
         return $this->repository->show($id);
