@@ -48,4 +48,28 @@ abstract class Repository {
         }
     }
 
+    public function show($id)
+    {
+        try {
+            $reg = $this->model->find($id);
+            return response()->json($reg, Response::HTTP_OK);
+
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'code' => $e->getCode(),
+                    'msg'=> $e->getMessage()
+                ]
+                ,500
+            );
+        }
+    }
+
+    public function index()
+    {
+        $regs = $this->model
+            ->paginate(config('app.paginate_number'));
+        return response()->json($regs);
+    }
+
 }
