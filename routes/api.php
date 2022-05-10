@@ -20,6 +20,7 @@ use App\Http\Controllers\ManifestoPercursoEstadoController;
 use App\Http\Controllers\ManifestoSeguroAverbacaoController;
 use App\Http\Controllers\ManifestoSeguroController;
 use App\Http\Controllers\ManifestoReboqueController;
+use App\Http\Controllers\ManifestoRodoLacreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -114,6 +115,7 @@ Route::resource('reboques', ManifestoReboqueController::class)->only([
     'destroy'
 ]);
 
-
-
-
+Route::resource('rodo-lacres', ManifestoRodoLacreController::class)->only([
+    'store',
+    'destroy'
+]);
