@@ -4,12 +4,40 @@ namespace App\Repositories;
 
 use App\Models\Empresa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class EmpresaRepository extends Repository
 {
     public function __construct(Empresa $model)
     {
         parent::__construct($model);
+    }
+    public function store(Request $request)
+    {
+        $validationData = Validator::make($request->all(),
+        [
+            'nome' => ['required', 'max:60', 'min:2'],
+            'cnpj' => 'required',
+        ],
+
+        [
+            // 'required' => 'O :attribute é obrigatório',
+        ],
+        [
+            'nome' => 'Nome',
+            'cnpj' => 'CNPJ'
+        ]
+        );
+
+        if ($validationData->fails()) {
+            return response()->json([
+                'inserted' => false,
+                'msg' => 'Erro de validação',
+                'errors' =>  $validationData->errors()
+            ], Response::HTTP_BAD_REQUEST);
+        }
+        return parent::store($request);
     }
 
 

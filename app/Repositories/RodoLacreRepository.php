@@ -18,7 +18,7 @@ class RodoLacreRepository extends Repository
     {
         $validationData = Validator::make($request->all(), [
             'manifesto_id' => 'required',
-            'nlacre' => 'required',
+            'nlacre' => ['required', 'max:20', 'min:1'],
         ]);
 
         if ($validationData->fails()) {
@@ -33,7 +33,7 @@ class RodoLacreRepository extends Repository
 
         $find = $this->model
             ->where('manifesto_id', $data['manifesto_id'])
-            ->where('ciot', $data['nlacre'])
+            ->where('nlacre', $data['nlacre'])
             ->first();
 
         if (isset($find)) {
