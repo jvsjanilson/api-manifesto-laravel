@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\PaisController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\ManifestoAutorizacaoController;
 use App\Http\Controllers\ManifestoCiotController;
 use App\Http\Controllers\ManifestoCondutorController;
 use App\Http\Controllers\ManifestoContratanteController;
+use App\Http\Controllers\ManifestoController;
 use App\Http\Controllers\ManifestoCteController;
 use App\Http\Controllers\ManifestoLacreController;
 use App\Http\Controllers\ManifestoMunicipioCarregamentoController;
@@ -37,85 +39,102 @@ use App\Http\Controllers\ManifestoRodoLacreController;
 //     return $request->user();
 // });
 
+Route::group([
 
-Route::resource('paises', PaisController::class);
-Route::resource('estados', EstadoController::class);
-Route::resource('municipios', MunicipioController::class);
-Route::resource('empresas', EmpresaController::class);
+    'middleware' => 'api',
+    'prefix' => 'auth'
 
-Route::resource('autorizacaos', ManifestoAutorizacaoController::class)->only([
-    'store',
-    'destroy'
-]);
+], function ($router) {
 
-Route::resource('ciots', ManifestoCiotController::class)->only([
-    'store',
-    'destroy'
-]);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class,'logout']);
+    Route::post('refresh', [AuthController::class,'refresh']);
+    Route::post('me', [AuthController::class,'me']);
 
-Route::resource('condutors', ManifestoCondutorController::class)->only([
-    'store',
-    'destroy'
-]);
+});
+Route::group(['middleware' => ['apiJWT']], function(){
 
-Route::resource('contratantes', ManifestoContratanteController::class)->only([
-    'store',
-    'destroy'
-]);
+    Route::resource('paises', PaisController::class);
+    Route::resource('estados', EstadoController::class);
+    Route::resource('municipios', MunicipioController::class);
+    Route::resource('empresas', EmpresaController::class);
 
-Route::resource('ctes', ManifestoCteController::class)->only([
-    'store',
-    'destroy'
-]);
+    Route::resource('autorizacaos', ManifestoAutorizacaoController::class)->only([
+        'store',
+        'destroy'
+    ]);
 
-Route::resource('lacres', ManifestoLacreController::class)->only([
-    'store',
-    'destroy'
-]);
+    Route::resource('ciots', ManifestoCiotController::class)->only([
+        'store',
+        'destroy'
+    ]);
 
-Route::resource('municipio-carregamentos', ManifestoMunicipioCarregamentoController::class)->only([
-    'store',
-    'destroy'
-]);
+    Route::resource('condutors', ManifestoCondutorController::class)->only([
+        'store',
+        'destroy'
+    ]);
 
-Route::resource('municipio-descarregamentos', ManifestoMunicipioDescarregamentoController::class)->only([
-    'store',
-    'destroy'
-]);
+    Route::resource('contratantes', ManifestoContratanteController::class)->only([
+        'store',
+        'destroy'
+    ]);
 
-Route::resource('nfes', ManifestoNfeController::class)->only([
-    'store',
-    'destroy'
-]);
+    Route::resource('ctes', ManifestoCteController::class)->only([
+        'store',
+        'destroy'
+    ]);
 
-Route::resource('pedagios', ManifestoPedagioController::class)->only([
-    'store',
-    'destroy'
-]);
+    Route::resource('lacres', ManifestoLacreController::class)->only([
+        'store',
+        'destroy'
+    ]);
 
-Route::resource('percurso-estados', ManifestoPercursoEstadoController::class)->only([
-    'store',
-    'destroy'
-]);
+    Route::resource('municipio-carregamentos', ManifestoMunicipioCarregamentoController::class)->only([
+        'store',
+        'destroy'
+    ]);
 
-Route::resource('seguros', ManifestoSeguroController::class)->only([
-    'store',
-    'destroy'
-]);
+    Route::resource('municipio-descarregamentos', ManifestoMunicipioDescarregamentoController::class)->only([
+        'store',
+        'destroy'
+    ]);
 
-Route::resource('seguro-averbacaos', ManifestoSeguroAverbacaoController::class)->only([
-    'store',
-    'destroy'
-]);
+    Route::resource('nfes', ManifestoNfeController::class)->only([
+        'store',
+        'destroy'
+    ]);
 
-Route::get('seguro-averbacao/{manifesto}/{seguro}', [ManifestoSeguroAverbacaoController::class,'list']);
+    Route::resource('pedagios', ManifestoPedagioController::class)->only([
+        'store',
+        'destroy'
+    ]);
 
-Route::resource('reboques', ManifestoReboqueController::class)->only([
-    'store',
-    'destroy'
-]);
+    Route::resource('percurso-estados', ManifestoPercursoEstadoController::class)->only([
+        'store',
+        'destroy'
+    ]);
 
-Route::resource('rodo-lacres', ManifestoRodoLacreController::class)->only([
-    'store',
-    'destroy'
-]);
+    Route::resource('seguros', ManifestoSeguroController::class)->only([
+        'store',
+        'destroy'
+    ]);
+
+    Route::resource('seguro-averbacaos', ManifestoSeguroAverbacaoController::class)->only([
+        'store',
+        'destroy'
+    ]);
+
+    Route::get('seguro-averbacao/{manifesto}/{seguro}', [ManifestoSeguroAverbacaoController::class,'list']);
+
+    Route::resource('reboques', ManifestoReboqueController::class)->only([
+        'store',
+        'destroy'
+    ]);
+
+    Route::resource('rodo-lacres', ManifestoRodoLacreController::class)->only([
+        'store',
+        'destroy'
+    ]);
+
+    Route::get('manifestos', [ManifestoController::class,'index']);
+});
