@@ -19,9 +19,9 @@ class ProtectedRouteApi
     {
         try {
             $user = JWTAuth::parseToken()->authenticate();
-            if (!$user->active) {
-                return response()->json(['status' => 'User inactive'],400);
-            }
+            // if (!$user->active) {
+            //     return response()->json(['status' => 'User inactive'],400);
+            // }
         } catch (\Exception $e) {
             if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
                 return response()->json(['status' => 'Token is Invalid'],400);

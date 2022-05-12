@@ -38,6 +38,9 @@ use App\Http\Controllers\ManifestoRodoLacreController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+Route::get('msg', function() {
+    return response()->json(['msg'=> 'Bye bye']);
+})->name('msg');
 
 Route::group([
 
