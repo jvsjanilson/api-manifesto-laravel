@@ -2,10 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\ManifestoRepository;
 use Illuminate\Http\Request;
 
 class ManifestoController extends Controller
 {
+
+    private $repository;
+
+    public function __construct(ManifestoRepository $repository)
+    {
+        $this->repository = $repository;
+    }
 
     public function index()
     {
@@ -14,7 +22,7 @@ class ManifestoController extends Controller
 
     public function store(Request $request)
     {
-        //
+        return $this->repository->store($request);
     }
 
     public function show($id)

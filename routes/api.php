@@ -140,4 +140,5 @@ Route::group(['middleware' => ['apiJWT']], function(){
     ]);
 
     Route::get('manifestos', [ManifestoController::class,'index']);
+    Route::post('manifestos', [ManifestoController::class,'store']);
 });
