@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Manifesto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
 
 class ManifestoRepository extends Repository
@@ -28,24 +29,9 @@ class ManifestoRepository extends Repository
     // }
     public function store(Request $request)
     {
-        $manifesto = $request->only('manifesto');
+        $manifesto = $request->all();
 
-        $validationData = Validator::make($manifesto['manifesto'], [
-            'ufini' => 'required',
-            'uffim' => 'required',
-            'tipoemit' => 'required',
-            'tipotransp' => 'required',
-            'modal' => 'required',
-            'cunid' => 'required',
-        ]);
 
-        if ($validationData->fails()) {
-            return response()->json([
-                'inserted' => false,
-                'msg' => 'Erro de validação',
-                'errors' =>  $validationData->errors()
-            ], Response::HTTP_BAD_REQUEST);
-        }
 
         // $veiculo_tracao = $request->only('vtracao_rntrc','vtracao_cint','vtracao_tpcar','vtracao_placa',
         //     'vtracao_tara','vtracao_renavam','vtracao_tprod','vtracao_capkg','vtracao_capm3','vtracao_uf',
