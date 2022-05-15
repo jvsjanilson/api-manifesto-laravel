@@ -26,6 +26,7 @@ class ManifestoCiotTest extends TestCase
         ]);
         $response->assertStatus(201);
     }
+
     public function test_destroy_ciot()
     {
         $model = ManifestoCiot::where('manifesto_id', 1)
