@@ -8,7 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class ManifestoPedagio extends Model
 {
     use HasFactory;
-    public $fillable = ['manifesto_id', 'cnpj_fornecedor','cpfcnpj_responsavel','numero_comprovante','valor_vale'];
+    public $fillable = [
+        'manifesto_id',
+        'cnpj_fornecedor',
+        'cpfcnpj_responsavel',
+        'numero_comprovante',
+        'valor_vale'
+    ];
 
 
     /**
