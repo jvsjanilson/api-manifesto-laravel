@@ -24,7 +24,7 @@ class CondutorStoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'manifesto_id' => 'required|integer',
+            'manifesto_id' => ['required','integer'],
             'cpf' => ['required', 'max:14'],
             'nome' => ['required','string', 'max:60']
         ];

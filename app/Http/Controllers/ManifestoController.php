@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ManifestoFormRequestStore;
+use App\Http\Requests\ManifestoStoreFormRequest;
 use App\Repositories\ManifestoRepository;
 use Illuminate\Http\Request;
 
@@ -21,7 +21,7 @@ class ManifestoController extends Controller
         //dd(request()->header('Authorization'));
     }
 
-    public function store(ManifestoFormRequestStore $request)
+    public function store(ManifestoStoreFormRequest $request)
     {
         return $this->repository->store($request);
     }
