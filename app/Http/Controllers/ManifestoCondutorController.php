@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CondutorStoreFormRequest;
 use Illuminate\Http\Request;
 use App\Repositories\CondutorRepository;
 
@@ -15,7 +16,7 @@ class ManifestoCondutorController extends Controller
         $this->repository = $repository;
     }
 
-    public function store(Request $request)
+    public function store(CondutorStoreFormRequest $request)
     {
         return $this->repository->store($request);
     }
