@@ -18,19 +18,6 @@ class ContratanteRepository extends Repository
 
     public function store(Request $request)
     {
-        $validationData = Validator::make($request->all(), [
-            'manifesto_id' => 'required',
-            'cpfcnpj' => 'required',
-        ]);
-
-        if ($validationData->fails()) {
-            return response()->json([
-                'inserted' => false,
-                'msg' => 'Erro de validação',
-                'errors' =>  $validationData->errors()
-            ], Response::HTTP_BAD_REQUEST);
-        }
-
         $data = $request->only('manifesto_id', 'cpfcnpj');
 
         $find = $this->model->where('cpfcnpj', Funcoes::disFormatCPFCNPJ($data['cpfcnpj']))

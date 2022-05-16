@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContratanteStoreFormRequest;
 use App\Repositories\ContratanteRepository;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class ManifestoContratanteController extends Controller
         $this->repository = $repository;
     }
 
-    public function store(Request $request)
+    public function store(ContratanteStoreFormRequest $request)
     {
         return $this->repository->store($request);
     }
