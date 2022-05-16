@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\ManifestoCiot;
 use Illuminate\Foundation\Http\FormRequest;
+use Symfony\Component\HttpFoundation\Response;
 
 class CiotStoreFormRequest extends FormRequest
 {
@@ -25,7 +27,25 @@ class CiotStoreFormRequest extends FormRequest
     {
         return [
             'manifesto_id' => 'required',
-            'ciot' => 'required',
+            'ciot' => ['required',
+            function ($attribute, $value, $fail) {
+
+                if ($value != "")
+                {
+                    if (!is_null($this->request->get('manifesto_id')))
+                    {
+                        $find = ManifestoCiot::where('ciot', $value)
+                            ->where('manifesto_id', $this->request->get('manifesto_id') )
+                            ->first();
+
+                        if (isset($find)) {
+                            $fail(':attribute ' . $value .' já lançado.');
+                        }
+
+                    }
+                }
+            }
+            ],
             'cpfcnpj' => 'required',
         ];
     }

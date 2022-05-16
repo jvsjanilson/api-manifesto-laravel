@@ -17,20 +17,6 @@ class CiotRepository extends Repository
     {
         $data = $request->only('manifesto_id', 'ciot', 'cpfcnpj');
 
-        $find = $this->model->where('ciot', $data['ciot'])
-            ->where('manifesto_id', $data['manifesto_id'])
-            ->first();
-
-        if (isset($find)) {
-            return response()->json(
-                [
-                    'msg' => 'Ciot já lançado'
-                ],
-                Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
-
-
         try {
             $create = $this->model->create($data);
             return response()->json(
