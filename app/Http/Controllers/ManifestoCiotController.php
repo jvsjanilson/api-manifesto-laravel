@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CiotStoreFormRequest;
 use App\Repositories\CiotRepository;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class ManifestoCiotController extends Controller
         $this->repository = $repository;
     }
 
-    public function store(Request $request)
+    public function store(CiotStoreFormRequest $request)
     {
        return $this->repository->store($request);
     }

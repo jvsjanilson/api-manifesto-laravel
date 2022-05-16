@@ -16,20 +16,6 @@ class CiotRepository extends Repository
 
     public function store(Request $request)
     {
-        $validationData = Validator::make($request->all(), [
-            'ciot' => 'required',
-            'cpfcnpj' => 'required',
-            'manifesto_id' => 'required'
-        ]);
-
-        if ($validationData->fails()) {
-            return response()->json([
-                'inserted' => false,
-                'msg' => 'Erro de validação',
-                'errors' =>  $validationData->errors()
-            ], Response::HTTP_BAD_REQUEST);
-        }
-
         $data = $request->only('manifesto_id', 'ciot', 'cpfcnpj');
 
         $find = $this->model->where('ciot', $data['ciot'])
