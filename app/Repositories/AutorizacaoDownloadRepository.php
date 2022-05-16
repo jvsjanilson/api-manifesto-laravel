@@ -21,33 +21,6 @@ class AutorizacaoDownloadRepository extends Repository
 
         $data = $request->only('manifesto_id', 'cpfcnpj');
 
-        $find = $this->model
-            ->where('cpfcnpj', Funcoes::disFormatCPFCNPJ($data['cpfcnpj']))
-            ->where('manifesto_id', $data['manifesto_id'])
-            ->first();
-
-        if (isset($find)) {
-            return response()->json([
-                    'msg' => 'CPF/CNPJ já lançado.'
-                ],
-                Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
-
-        $count = $this->model->select(DB::raw('count(*) as total'))
-            ->where('manifesto_id', $data['manifesto_id'])
-            ->get()[0]['total'];
-
-        if ($count >= Limite::NUMERO_MAXIMO_AUTORIZACAO_DOWNLOAD)
-        {
-            return response()->json(
-                [
-                    'msg' => 'Número máximo é ' . strval(Limite::NUMERO_MAXIMO_AUTORIZACAO_DOWNLOAD). '.'
-                ],
-                Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
-
         try {
             $create = $this->model->create($data);
             return response()->json(

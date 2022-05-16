@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Constantes\Limite;
+use App\Models\ManifestoAutorizacao;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 
 class AutorizacaoDownloadStoreFormRequest extends FormRequest
 {
@@ -24,8 +27,40 @@ class AutorizacaoDownloadStoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'cpfcnpj' => 'required',
-            'manifesto_id' => 'required'
+            'manifesto_id' => ['required', 'integer'],
+            'cpfcnpj' => ['required',
+                function ($attribute, $value, $fail) {
+
+                    if ($value != "")
+                    {
+                        if (!is_null($this->request->get('manifesto_id')))
+                        {
+                            $find = ManifestoAutorizacao::where('cpfcnpj', $value)
+                                ->where('manifesto_id', $this->request->get('manifesto_id') )
+                                ->first();
+
+                            if (isset($find)) {
+                                $fail(':attribute ' . $value .' já lançado.');
+                            }
+
+                        }
+                    }
+                },
+                function ($attribute, $value, $fail) {
+                    if ($value != "")
+                    {
+                        if (!is_null($this->request->get('manifesto_id')))
+                        {
+                            $count = ManifestoAutorizacao::select(DB::raw('count(*) as total'))
+                                ->where('manifesto_id', $this->request->get('manifesto_id'))
+                                ->get()[0]['total'];
+                            if ($count >= Limite::NUMERO_MAXIMO_AUTORIZACAO_DOWNLOAD)
+                                $fail('Número máximo é ' . strval(Limite::NUMERO_MAXIMO_AUTORIZACAO_DOWNLOAD). '.');
+                        }
+                    }
+                }
+
+        ],
         ];
     }
 
