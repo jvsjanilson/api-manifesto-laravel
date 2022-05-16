@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class ManifestoRodoLacre extends Model
 {
     use HasFactory;
-    public $fillable = ['manifesto_id', 'nlacre'];
+    public $fillable = ['manifesto_id', 'numero'];
 }
