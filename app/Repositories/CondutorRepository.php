@@ -21,33 +21,6 @@ class CondutorRepository extends Repository
 
         $data = $request->only('nome','cpf', 'manifesto_id');
 
-        $find = $this->model->where('cpf', Funcoes::disFormatCPFCNPJ($data['cpf']))
-            ->where('manifesto_id', $data['manifesto_id'])
-            ->first();
-
-        if (isset($find)) {
-            return response()->json(
-                [
-                    'msg' => 'CPF já lançado'
-                ],
-                Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
-
-        $count = $this->model->select(DB::raw('count(*) as total'))
-            ->where('manifesto_id', $data['manifesto_id'])
-            ->get()[0]['total'];
-
-        if ($count >= Limite::NUMERO_MAXIMO_CONDUTOR)
-        {
-            return response()->json(
-                [
-                    'msg' => 'Número máximo é ' .strval(Limite::NUMERO_MAXIMO_CONDUTOR) . '.'
-                ],
-                Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
-
         try {
             $create = $this->model->create($data);
             return response()->json(

@@ -27,7 +27,7 @@ class AutorizacaoDownloadStoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'manifesto_id' => ['required', 'integer'],
+            'manifesto_id' => ['required', 'integer', 'min:1'],
             'cpfcnpj' => ['required',
                 function ($attribute, $value, $fail) {
 
@@ -46,6 +46,7 @@ class AutorizacaoDownloadStoreFormRequest extends FormRequest
                         }
                     }
                 },
+
                 function ($attribute, $value, $fail) {
                     if ($value != "")
                     {
@@ -60,7 +61,7 @@ class AutorizacaoDownloadStoreFormRequest extends FormRequest
                     }
                 }
 
-        ],
+            ],
         ];
     }
 
