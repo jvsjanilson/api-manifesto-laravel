@@ -40,6 +40,9 @@ class Handler extends ExceptionHandler
         });
     }
 
+    /**
+     * Evita retornar a pagina / caso nao passe na validacao FormRequest
+     */
     public function render($request, Throwable $e)
     {
         if ($request->is('api/*')) {

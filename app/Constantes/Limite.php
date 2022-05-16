@@ -10,4 +10,5 @@ class Limite {
     public const NUMERO_MAXIMO_CTE = 100;
     public const NUMERO_MAXIMO_NFE = 100;
     public const NUMERO_MAXIMO_REBOQUE = 10;
+    public const NUMERO_MAXIMO_PRODUTOPREDOMINANTE = 1;
 }

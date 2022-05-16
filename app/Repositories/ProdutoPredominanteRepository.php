@@ -2,48 +2,60 @@
 
 namespace App\Repositories;
 
-use App\Models\ManifestoAutorizacao;
+use App\Constantes\Limite;
 use Illuminate\Http\Request;
+use App\Models\ManifestoProdutoPredominante;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
-use App\Constantes\Limite;
-use App\Models\Funcoes;
 
-class AutorizacaoDownloadRepository extends Repository
+class ProdutoPredominanteRepository extends Repository
 {
-    public function __construct(ManifestoAutorizacao $model)
+    public function __construct(ManifestoProdutoPredominante $model)
     {
         parent::__construct($model);
     }
 
     public function store(Request $request)
     {
+        $validationData = Validator::make($request->all(), [
+            'manifesto_id' => 'required',
+            'xprod' => ['required','string','max:120','min:2'],
+        ]);
 
-        $data = $request->only('manifesto_id', 'cpfcnpj');
+        if ($validationData->fails()) {
+            return response()->json([
+                'inserted' => false,
+                'msg' => 'Erro de validação',
+                'errors' =>  $validationData->errors()
+            ], Response::HTTP_BAD_REQUEST);
+        }
 
-        $find = $this->model
-            ->where('cpfcnpj', Funcoes::disFormatCPFCNPJ($data['cpfcnpj']))
+        $data = $request->only('manifesto_id','tpcarga', 'cean', 'ncm','xprod');
+
+        $find = $this->model->where('xprod', $data['xprod'])
             ->where('manifesto_id', $data['manifesto_id'])
             ->first();
 
         if (isset($find)) {
-            return response()->json([
-                    'msg' => 'CPF/CNPJ já lançado.'
+            return response()->json(
+                [
+                    'msg' => 'Produto já lançado.'
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
 
+
         $count = $this->model->select(DB::raw('count(*) as total'))
             ->where('manifesto_id', $data['manifesto_id'])
             ->get()[0]['total'];
 
-        if ($count >= Limite::NUMERO_MAXIMO_AUTORIZACAO_DOWNLOAD)
+        if ($count >= Limite::NUMERO_MAXIMO_PRODUTOPREDOMINANTE)
         {
             return response()->json(
                 [
-                    'msg' => 'Número máximo é ' . strval(Limite::NUMERO_MAXIMO_AUTORIZACAO_DOWNLOAD). '.'
+                    'msg' => 'Número máximo é ' . strval(Limite::NUMERO_MAXIMO_PRODUTOPREDOMINANTE). '.'
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
@@ -67,6 +79,6 @@ class AutorizacaoDownloadRepository extends Repository
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
-
     }
+
 }

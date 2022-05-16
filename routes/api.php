@@ -19,6 +19,7 @@ use App\Http\Controllers\ManifestoMunicipioDescarregamentoController;
 use App\Http\Controllers\ManifestoNfeController;
 use App\Http\Controllers\ManifestoPedagioController;
 use App\Http\Controllers\ManifestoPercursoEstadoController;
+use App\Http\Controllers\ManifestoProdutoPredominanteController;
 use App\Http\Controllers\ManifestoSeguroAverbacaoController;
 use App\Http\Controllers\ManifestoSeguroController;
 use App\Http\Controllers\ManifestoReboqueController;
@@ -138,6 +139,12 @@ Route::group([
         'store',
         'destroy'
     ]);
+
+    Route::resource('produtopredominantes', ManifestoProdutoPredominanteController::class)->only([
+        'store',
+        'destroy'
+    ]);
+
 
     Route::get('manifestos', [ManifestoController::class,'index']);
     Route::post('manifestos', [ManifestoController::class,'store']);

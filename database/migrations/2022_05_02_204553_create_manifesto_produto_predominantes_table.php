@@ -19,7 +19,7 @@ class CreateManifestoProdutoPredominantesTable extends Migration
             $table->foreign('manifesto_id')->references('id')
                 ->on('manifestos')->onDelete('cascade');
 
-            $table->string('tpcarga',2);
+            $table->string('tpcarga',2); //01 ... 11
             $table->string('xprod',120);
             $table->string('cean',14)->nullable();
             $table->string('ncm',8)->nullable();
