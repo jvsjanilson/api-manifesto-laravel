@@ -18,7 +18,7 @@ class CreateManifestoRodoLacresTable extends Migration
             $table->unsignedBigInteger('manifesto_id');
             $table->foreign('manifesto_id')->references('id')
                 ->on('manifestos')->onDelete('cascade');
-            $table->string('nlacre', 20);
+            $table->string('numero', 20);
             $table->timestamps();
         });
     }
