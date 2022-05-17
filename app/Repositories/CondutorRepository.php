@@ -31,8 +31,7 @@ class CondutorRepository extends Repository
                 Response::HTTP_CREATED
             );
         } catch (\Exception $e) {
-            return response()->json(
-                [
+            return response()->json([
                     'inserted' => false,
                     'msg' => env('APP_DEBUG') == true ? 'Error ao inserir: ' . $e->getMessage() : 'Error ao inserir'
                 ],

@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Funcoes;
+use App\Models\ManifestoContratante;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ContratanteStoreFormRequest extends FormRequest
@@ -25,7 +27,29 @@ class ContratanteStoreFormRequest extends FormRequest
     {
         return [
             'manifesto_id' => ['required','integer'],
-            'cpfcnpj' => ['required', 'min:14', 'max:18'],
+            'cpfcnpj' => [
+                'required',
+                'min:14',
+                'max:18',
+                function ($attribute, $value, $fail)
+                {
+                    if ($value != "")
+                    {
+                        if (!is_null($this->request->get('manifesto_id')))
+                        {
+                            $find = ManifestoContratante::
+                                where('manifesto_id',$this->request->get('manifesto_id'))
+                                ->where('cpfcnpj', Funcoes::disFormatCPFCNPJ($value))
+                                ->first();
+
+                            if (isset($find))
+                            {
+                                $fail(':attribute ' . $value .' já lançado.');
+                            }
+                        }
+                    }
+                }
+            ],
         ];
     }
 
