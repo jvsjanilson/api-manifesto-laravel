@@ -47,4 +47,12 @@ class LacreStoreFormRequest extends FormRequest
             ],
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'manifesto_id' => 'ID do Manifesto',
+            'numero' => 'Número',
+        ];
+    }
 }

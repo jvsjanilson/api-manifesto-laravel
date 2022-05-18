@@ -34,7 +34,7 @@ abstract class Repository {
                     'code' => $e->getCode(),
                     'msg'=> $e->getMessage()
                 ]
-                ,Response::HTTP_INTERNAL_SERVER_ERROR
+                ,Response::HTTP_BAD_REQUEST
             );
         }
     }
@@ -51,7 +51,7 @@ abstract class Repository {
                     'inserted' => false,
                     'msg' => env('APP_DEBUG') == true ? 'Error ao inserir: ' . $e->getMessage() : 'Error ao inserir'
                 ],
-                Response::HTTP_INTERNAL_SERVER_ERROR
+                Response::HTTP_BAD_REQUEST
             );
         }
     }
@@ -70,7 +70,7 @@ abstract class Repository {
                     'code' => $e->getCode(),
                     'msg'=> $e->getMessage()
                 ]
-                ,Response::HTTP_INTERNAL_SERVER_ERROR
+                ,Response::HTTP_BAD_REQUEST
             );
         }
     }
@@ -104,7 +104,7 @@ abstract class Repository {
                     'msg'=> env('APP_DEBUG') == true ? 'Error ao deletar: ' . $e->getMessage() : 'Error ao deletar',
                     'deleted' => false
                 ],
-                Response::HTTP_INTERNAL_SERVER_ERROR
+                Response::HTTP_BAD_REQUEST
             );
         }
     }

@@ -25,7 +25,7 @@ class MunicipioRepository extends Repository
                     'code' => $e->getCode(),
                     'msg'=> $e->getMessage()
                 ]
-                ,Response::HTTP_INTERNAL_SERVER_ERROR
+                ,Response::HTTP_BAD_REQUEST
             );
         }
     }
@@ -44,7 +44,7 @@ class MunicipioRepository extends Repository
                     'code' => $e->getCode(),
                     'msg'=> $e->getMessage()
                 ]
-                ,Response::HTTP_INTERNAL_SERVER_ERROR
+                ,Response::HTTP_BAD_REQUEST
             );
         }
     }

@@ -79,7 +79,7 @@ class ReboqueRepository extends Repository
                 [
                     'msg' => 'Reboque com a placa já lançado.'
                 ],
-                Response::HTTP_INTERNAL_SERVER_ERROR
+                Response::HTTP_BAD_REQUEST
             );
         }
 
@@ -94,7 +94,7 @@ class ReboqueRepository extends Repository
                 [
                     'msg' => 'Número máximo é ' . strval(Limite::NUMERO_MAXIMO_REBOQUE). '.'
                 ],
-                Response::HTTP_INTERNAL_SERVER_ERROR
+                Response::HTTP_BAD_REQUEST
             );
         }
 
