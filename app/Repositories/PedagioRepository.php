@@ -26,7 +26,7 @@ class PedagioRepository extends Repository
 
         if ($validationData->fails()) {
             return response()->json([
-                'inserted' => false,
+                'created' => false,
                 'msg' => 'Erro de validação',
                 'errors' =>  $validationData->errors()
             ], Response::HTTP_BAD_REQUEST);
@@ -54,7 +54,7 @@ class PedagioRepository extends Repository
             $create = $this->model->create($data);
             return response()->json(
                 [
-                    'inserted' => true,
+                    'created' => true,
                     'data' => $create
                 ],
                 Response::HTTP_CREATED
@@ -62,7 +62,7 @@ class PedagioRepository extends Repository
         } catch (\Exception $e) {
             return response()->json(
                 [
-                    'inserted' => false,
+                    'created' => false,
                     'msg' => env('APP_DEBUG') == true ? 'Error ao inserir: ' . $e->getMessage() : 'Error ao inserir'
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR

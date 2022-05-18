@@ -22,7 +22,7 @@ class CteRepository extends Repository
             $create = $this->model->create($data);
             return response()->json(
                 [
-                    'inserted' => true,
+                    'created' => true,
                     'data' => $this->model->select('manifesto_ctes.id', 'manifesto_ctes.chave',
                         'manifesto_ctes.segcodbarras',
                         'municipios.nome'
@@ -35,7 +35,7 @@ class CteRepository extends Repository
         } catch (\Exception $e) {
             return response()->json(
                 [
-                    'inserted' => false,
+                    'created' => false,
                     'msg' => env('APP_DEBUG') == true ? 'Error ao inserir: ' . $e->getMessage() : 'Error ao inserir'
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
