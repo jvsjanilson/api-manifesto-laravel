@@ -30,6 +30,7 @@ class CteStoreFormRequest extends FormRequest
             'manifesto_id' => [
                 'required',
                 'integer',
+                'min:1',
                 function($attribute, $value, $fail) {
                     if ($value != "")
                     {

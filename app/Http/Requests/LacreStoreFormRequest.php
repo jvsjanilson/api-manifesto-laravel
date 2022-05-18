@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Funcoes;
-use App\Models\ManifestoContratante;
+use App\Models\ManifestoLacre;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ContratanteStoreFormRequest extends FormRequest
+class LacreStoreFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,20 +26,16 @@ class ContratanteStoreFormRequest extends FormRequest
     {
         return [
             'manifesto_id' => ['required','integer', 'min:1'],
-            'cpfcnpj' => [
-                'required',
-                'min:14',
-                'max:18',
-                function ($attribute, $value, $fail)
-                {
+            'numero' => ['required', 'max:60',
+                function ($attribute, $value, $fail) {
                     if ($value != "")
                     {
                         if (!is_null($this->request->get('manifesto_id')))
                         {
-                            $find = ManifestoContratante::
-                                where('manifesto_id',$this->request->get('manifesto_id'))
-                                ->where('cpfcnpj', Funcoes::disFormatCPFCNPJ($value))
-                                ->first();
+                            $find = ManifestoLacre::
+                                where('manifesto_id', $this->request->get('manifesto_id'))
+                                ->where('numero', $value)
+                            ->first();
 
                             if (isset($find))
                             {
@@ -50,14 +45,6 @@ class ContratanteStoreFormRequest extends FormRequest
                     }
                 }
             ],
-        ];
-    }
-
-    public function attributes()
-    {
-        return [
-            'manifesto_id' => 'ID do Manifesto',
-            'cpfcnpj' => 'CPF/CNPJ',
         ];
     }
 }

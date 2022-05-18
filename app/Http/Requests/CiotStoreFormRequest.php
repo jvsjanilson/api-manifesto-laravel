@@ -26,7 +26,7 @@ class CiotStoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'manifesto_id' => 'required',
+            'manifesto_id' => ['required', 'min:1'],
             'ciot' => ['required',
             function ($attribute, $value, $fail) {
 
