@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SeguroAverbacaoStoreFormRequest;
 use App\Repositories\SeguroAverbacaoRepository;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class ManifestoSeguroAverbacaoController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(SeguroAverbacaoStoreFormRequest $request)
     {
         return $this->repository->store($request);
     }

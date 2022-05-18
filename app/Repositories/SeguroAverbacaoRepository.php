@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\ManifestoSeguroAverbacao;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class SeguroAverbacaoRepository extends Repository
@@ -26,38 +25,7 @@ class SeguroAverbacaoRepository extends Repository
 
     public function store(Request $request)
     {
-        $validationData = Validator::make($request->all(), [
-            'manifesto_id' => 'required|integer',
-            'numero' => 'required',
-            'manifesto_seguro_id' => 'required|integer',
-        ]);
-
-        if ($validationData->fails()) {
-            return response()->json([
-                'created' => false,
-                'msg' => 'Erro de validação',
-                'errors' =>  $validationData->errors()
-            ], Response::HTTP_BAD_REQUEST);
-        }
-
         $data = $request->only('manifesto_id', 'manifesto_seguro_id', 'numero');
-
-        $find = $this->model
-            ->where('manifesto_id', $data['manifesto_id'])
-            ->where('manifesto_seguro_id', $data['manifesto_seguro_id'])
-            ->where('numero', $data['numero'])
-            ->first();
-
-        if (isset($find)) {
-            return response()->json(
-                [
-                    'msg' => 'Averbação já lançado'
-                ],
-                Response::HTTP_BAD_REQUEST
-            );
-        }
-
-
         try {
             $create = $this->model->create($data);
             return response()->json($create,Response::HTTP_CREATED );
