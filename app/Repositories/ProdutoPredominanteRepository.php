@@ -18,20 +18,8 @@ class ProdutoPredominanteRepository extends Repository
 
     public function store(Request $request)
     {
-        $validationData = Validator::make($request->all(), [
-            'manifesto_id' => 'required',
-            'xprod' => ['required','string','max:120','min:2'],
-        ]);
-
-        if ($validationData->fails()) {
-            return response()->json([
-                'created' => false,
-                'msg' => 'Erro de validação',
-                'errors' =>  $validationData->errors()
-            ], Response::HTTP_BAD_REQUEST);
-        }
-
         $data = $request->only('manifesto_id','tpcarga', 'cean', 'ncm','xprod');
+ 
 
         $find = $this->model->where('xprod', $data['xprod'])
             ->where('manifesto_id', $data['manifesto_id'])

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProdutoPredominanteStoreFormRequest;
 use App\Repositories\ProdutoPredominanteRepository;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class ManifestoProdutoPredominanteController extends Controller
         $this->repository = $repository;
     }
 
-    public function store(Request $request)
+    public function store(ProdutoPredominanteStoreFormRequest $request)
     {
         return $this->repository->store($request);
     }
