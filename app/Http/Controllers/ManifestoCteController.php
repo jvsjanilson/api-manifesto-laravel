@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Http\Requests\CteStoreFormRequest;
 use Illuminate\Http\Request;
 use App\Repositories\CteRepository;
 
@@ -15,7 +15,7 @@ class ManifestoCteController extends Controller
         $this->repository = $repository;
     }
 
-    public function store(Request $request)
+    public function store(CteStoreFormRequest $request)
     {
         return $this->repository->store($request);
     }
