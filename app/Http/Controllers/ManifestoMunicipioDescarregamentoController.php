@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MunicipioDescarregamentoStoreFormRequest;
 use App\Repositories\MunicipioDescarregamentoRepository;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class ManifestoMunicipioDescarregamentoController extends Controller
         $this->repository = $repository;
     }
 
-    public function store(Request $request)
+    public function store(MunicipioDescarregamentoStoreFormRequest $request)
     {
         return $this->repository->store($request);
     }
