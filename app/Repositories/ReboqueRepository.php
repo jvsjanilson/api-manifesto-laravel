@@ -100,18 +100,11 @@ class ReboqueRepository extends Repository
 
         try {
             $create = $this->model->create($data);
-            return response()->json(
-                [
-                    'created' => true,
-                    'data' => $create
-                ],
-                Response::HTTP_CREATED
-            );
+            return response()->json($create, Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return response()->json(
                 [
-                    'created' => false,
-                    'msg' => env('APP_DEBUG') == true ? 'Error ao inserir: ' . $e->getMessage() : 'Error ao inserir'
+                    'message' => env('APP_DEBUG') == true ? 'Error ao inserir: ' . $e->getMessage() : 'Error ao inserir'
                 ],
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );

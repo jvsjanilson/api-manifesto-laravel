@@ -18,21 +18,13 @@ class CondutorRepository extends Repository
 
     public function store(Request $request)
     {
-
         $data = $request->only('nome','cpf', 'manifesto_id');
 
         try {
             $create = $this->model->create($data);
-            return response()->json(
-                [
-                    'created' => true,
-                    'data' => $create
-                ],
-                Response::HTTP_CREATED
-            );
+            return response()->json($create, Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return response()->json([
-                    'created' => false,
                     'msg' => env('APP_DEBUG') == true ? 'Error ao inserir: ' . $e->getMessage() : 'Error ao inserir'
                 ],
                 Response::HTTP_BAD_REQUEST

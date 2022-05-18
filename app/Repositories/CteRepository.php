@@ -21,22 +21,19 @@ class CteRepository extends Repository
         try {
             $create = $this->model->create($data);
             return response()->json(
-                [
-                    'created' => true,
-                    'data' => $this->model->select('manifesto_ctes.id', 'manifesto_ctes.chave',
+                $this->model->select('manifesto_ctes.id', 'manifesto_ctes.chave',
                         'manifesto_ctes.segcodbarras',
                         'municipios.nome'
                     )
                     ->join('municipios', 'manifesto_ctes.municipio_id', '=', 'municipios.id')
                     ->find($create->id)
-                ],
+                ,
                 Response::HTTP_CREATED
             );
         } catch (\Exception $e) {
             return response()->json(
                 [
-                    'created' => false,
-                    'msg' => env('APP_DEBUG') == true ? 'Error ao inserir: ' . $e->getMessage() : 'Error ao inserir'
+                    'message' => env('APP_DEBUG') == true ? 'Error ao inserir: ' . $e->getMessage() : 'Error ao inserir'
                 ],
                 Response::HTTP_BAD_REQUEST
             );

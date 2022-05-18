@@ -47,12 +47,10 @@ class PercursoEstadoRepository extends Repository
         try {
             $create = $this->model->create($data);
             return response()->json(
-                [
-                    'created' => true,
-                    'data' => $this->model->join('estados', 'manifesto_percurso_estados.estado_id', '=', 'estados.id')
-                      ->select('estados.uf', 'manifesto_percurso_estados.id')
-                      ->find($create->id)
-                ],
+                $this->model->join('estados', 'manifesto_percurso_estados.estado_id', '=', 'estados.id')
+                    ->select('estados.uf', 'manifesto_percurso_estados.id')
+                    ->find($create->id)
+                ,
                 Response::HTTP_CREATED
             );
         } catch (\Exception $e) {
