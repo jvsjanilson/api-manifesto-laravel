@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SeguroStoreFormRequest;
 use App\Repositories\SeguroRepository;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class ManifestoSeguroController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(SeguroStoreFormRequest $request)
     {
         return $this->repository->store($request);
     }
