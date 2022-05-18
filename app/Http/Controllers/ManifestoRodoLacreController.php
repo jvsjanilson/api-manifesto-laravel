@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RodoLacreStoreFormRequest;
 use App\Repositories\RodoLacreRepository;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class ManifestoRodoLacreController extends Controller
         $this->repository = $repository;
     }
 
-    public function store(Request $request)
+    public function store(RodoLacreStoreFormRequest $request)
     {
         return $this->repository->store($request);
     }
