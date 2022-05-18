@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NfeStoreFormRequest;
 use App\Repositories\NfeRepository;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class ManifestoNfeController extends Controller
         $this->repository = $repository;
     }
 
-    public function store(Request $request)
+    public function store(NfeStoreFormRequest $request)
     {
         return $this->repository->store($request);
     }

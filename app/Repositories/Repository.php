@@ -32,7 +32,7 @@ abstract class Repository {
             return response()->json(
                 [
                     'code' => $e->getCode(),
-                    'msg'=> $e->getMessage()
+                    'message'=> $e->getMessage()
                 ]
                 ,Response::HTTP_BAD_REQUEST
             );
@@ -48,8 +48,7 @@ abstract class Repository {
         } catch (\Exception $e) {
             return response()->json(
                 [
-                    'inserted' => false,
-                    'msg' => env('APP_DEBUG') == true ? 'Error ao inserir: ' . $e->getMessage() : 'Error ao inserir'
+                    'message' => env('APP_DEBUG') == true ? 'Error ao inserir: ' . $e->getMessage() : 'Error ao inserir'
                 ],
                 Response::HTTP_BAD_REQUEST
             );
@@ -68,7 +67,7 @@ abstract class Repository {
             return response()->json(
                 [
                     'code' => $e->getCode(),
-                    'msg'=> $e->getMessage()
+                    'message'=> $e->getMessage()
                 ]
                 ,Response::HTTP_BAD_REQUEST
             );
@@ -82,8 +81,7 @@ abstract class Repository {
         if ( !isset($reg)) {
             return response()->json(
                 [
-                    'msg'=> 'Registro não encontrado.',
-                    'deleted' => false
+                    'message'=> 'Registro não encontrado.',
                 ],
                 Response::HTTP_NOT_FOUND
             );
@@ -93,16 +91,15 @@ abstract class Repository {
             $reg->delete();
             return response()->json(
                     [
-                        'msg'=> 'Removido com sucesso.',
-                        'deleted' => true
+                        'message'=> 'Removido com sucesso.',
                     ],
                     Response::HTTP_OK
                 );
         } catch (\Exception $e) {
             return response()->json(
                 [
-                    'msg'=> env('APP_DEBUG') == true ? 'Error ao deletar: ' . $e->getMessage() : 'Error ao deletar',
-                    'deleted' => false
+                    'message'=> env('APP_DEBUG') == true ? 'Error ao deletar: ' . $e->getMessage() : 'Error ao deletar',
+
                 ],
                 Response::HTTP_BAD_REQUEST
             );
