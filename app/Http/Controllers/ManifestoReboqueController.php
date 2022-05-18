@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReboqueStoreFormRequest;
 use App\Repositories\ReboqueRepository;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class ManifestoReboqueController extends Controller
         $this->repository = $repository;
     }
 
-    public function store(Request $request)
+    public function store(ReboqueStoreFormRequest $request)
     {
         return $this->repository->store($request);
     }
