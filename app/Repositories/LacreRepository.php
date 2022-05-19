@@ -10,5 +10,4 @@ class LacreRepository extends Repository
     {
         parent::__construct($model);
     }
-
 }

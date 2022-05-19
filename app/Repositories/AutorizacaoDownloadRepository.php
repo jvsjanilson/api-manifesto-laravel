@@ -10,6 +10,4 @@ class AutorizacaoDownloadRepository extends Repository
     {
         parent::__construct($model);
     }
-
-
 }

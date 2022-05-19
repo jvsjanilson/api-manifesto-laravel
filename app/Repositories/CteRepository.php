@@ -6,7 +6,6 @@ use App\Models\ManifestoCte;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class CteRepository extends Repository
 {
     public function __construct(ManifestoCte $model)
