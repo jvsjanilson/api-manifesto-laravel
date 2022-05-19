@@ -26,6 +26,11 @@ abstract class Repository {
     {
         try {
             $reg = $this->model->find($id);
+
+            if (!isset($reg)) {
+                return response()->json(['message'=> 'Registro não encontrado'], Response::HTTP_NOT_FOUND);
+            }
+
             return response()->json($reg, Response::HTTP_OK);
 
         } catch (\Exception $e) {
@@ -43,8 +48,8 @@ abstract class Repository {
     {
         $data = $request->all();
         try {
-            $res = $this->model->create($data);
-            return response()->json(['id'=> $res->id],Response::HTTP_CREATED);
+            $created = $this->model->create($data);
+            return response()->json($created,Response::HTTP_CREATED);
         } catch (\Exception $e) {
             return response()->json(
                 [
@@ -57,12 +62,15 @@ abstract class Repository {
 
     public function update(Request $request, $id)
     {
-        $inputs = $request->all();
+        $data = $request->all();
 
         try {
-            $reg = $this->model->find($id);
-            $reg->update($inputs);
-            return response()->json(['msg' => 'Atualizado com sucesso.'], Response::HTTP_OK);
+            $updated = $this->model->find($id);
+            if (!isset($updated)) {
+                return response()->json(['message'=> 'Registro não encontrado.'], Response::HTTP_NOT_FOUND);
+            }
+            $updated->update($data);
+            return response()->json($updated, Response::HTTP_OK);
         } catch (\Exception $e) {
             return response()->json(
                 [
