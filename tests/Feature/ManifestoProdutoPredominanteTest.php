@@ -3,8 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\ManifestoProdutoPredominante;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ManifestoProdutoPredominanteTest extends TestCase
@@ -28,7 +26,8 @@ class ManifestoProdutoPredominanteTest extends TestCase
     public function test_destroy_produto_predominante()
     {
         $model = ManifestoProdutoPredominante::where('manifesto_id', 1)
-            ->where('xprod', 'Batata frita')->first();
+            ->where('xprod', 'Batata frita')
+            ->first();
 
         $response = $this->delete('/api/produtopredominantes/'.$model->id);
         $response->assertStatus(200);

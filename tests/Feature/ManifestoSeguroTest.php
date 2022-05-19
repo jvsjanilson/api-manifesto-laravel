@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class ManifestoSeguroTest extends TestCase
 {
-/**
+    /**
      * A basic feature test example.
      *
      * @return void
