@@ -6,6 +6,7 @@ use App\Constantes\Limite;
 use App\Models\ManifestoProdutoPredominante;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class ProdutoPredominanteStoreFormRequest extends FormRequest
 {
@@ -28,6 +29,7 @@ class ProdutoPredominanteStoreFormRequest extends FormRequest
     {
         return [
             'manifesto_id' => ['required', 'integer', 'min:1'],
+            'tpcarga' => ['required', 'string',  Rule::in(['01','02','03','04','05','06','07','08','09','10','11'])],
             'xprod' => ['required','string','max:120','min:2',
                 function ($attribute, $value, $fail)
                 {
@@ -65,7 +67,8 @@ class ProdutoPredominanteStoreFormRequest extends FormRequest
     {
         return [
             'manifesto_id' => 'ID do Manifesto',
-            'xprod' => 'Produto'
+            'xprod' => 'Produto',
+            'tpcarga' => 'Tipo Carga'
 
         ];
     }

@@ -29,8 +29,7 @@ class ContratanteStoreFormRequest extends FormRequest
             'manifesto_id' => ['required','integer', 'min:1'],
             'cpfcnpj' => [
                 'required',
-                'min:14',
-                'max:18',
+
                 function ($attribute, $value, $fail)
                 {
                     if ($value != "")

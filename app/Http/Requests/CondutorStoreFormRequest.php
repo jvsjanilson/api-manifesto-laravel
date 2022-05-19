@@ -31,8 +31,8 @@ class CondutorStoreFormRequest extends FormRequest
             'nome' => ['required','string', 'max:60', 'min:4'],
             'cpf' => [
                 'required',
-                'max:14',
-                'min:14',
+                'max:11',
+                'min:11',
                 function ($attribute, $value, $fail) {
 
                     if ($value != "")
