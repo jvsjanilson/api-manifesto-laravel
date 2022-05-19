@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Http\Requests\MunicipioStoreUpdateFormRequest;
 use App\Repositories\MunicipioRepository;
 use Illuminate\Http\Request;
 
@@ -21,7 +21,7 @@ class MunicipioController extends Controller
         return $this->repository->index();
     }
 
-    public function store(Request $request)
+    public function store(MunicipioStoreUpdateFormRequest $request)
     {
         return $this->repository->store($request);
     }
@@ -31,7 +31,7 @@ class MunicipioController extends Controller
         return $this->repository->show($id);
     }
 
-    public function update(Request $request, $id)
+    public function update(MunicipioStoreUpdateFormRequest $request, $id)
     {
         return $this->repository->update($request, $id);
     }
