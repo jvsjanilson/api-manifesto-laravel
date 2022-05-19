@@ -25,7 +25,7 @@ class PaisStoreUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'nome' => ['required', 'max:120'],
+            'nome' => [ Rule::requiredIf(is_null($this->route('paise'))), 'max:120'],
             'cod_ibge' => [
                 'unique:pais,cod_ibge,id',
                 Rule::requiredIf(is_null($this->route('paise')))
