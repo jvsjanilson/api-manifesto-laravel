@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EstadoStoreUpdateFormRequest;
 use App\Repositories\EstadoRepository;
 
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class EstadoController extends Controller
         return $this->repository->index();
     }
 
-    public function store(Request $request)
+    public function store(EstadoStoreUpdateFormRequest $request)
     {
         return $this->repository->store($request);
     }
@@ -31,7 +32,7 @@ class EstadoController extends Controller
         return $this->repository->show($id);
     }
 
-    public function update(Request $request, $id)
+    public function update(EstadoStoreUpdateFormRequest $request, $id)
     {
         return $this->repository->update($request, $id);
     }
