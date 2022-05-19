@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\ManifestoPercursoEstado;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class PercursoEstadoRepository extends Repository

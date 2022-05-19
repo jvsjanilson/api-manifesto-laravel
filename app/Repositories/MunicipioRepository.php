@@ -3,8 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Municipio;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class MunicipioRepository extends Repository
 {

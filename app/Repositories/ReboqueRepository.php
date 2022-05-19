@@ -2,11 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Constantes\Limite;
 use App\Models\ManifestoReboque;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class ReboqueRepository extends Repository
@@ -18,11 +15,7 @@ class ReboqueRepository extends Repository
 
     public function store(Request $request)
     {
-        $data = $request->only('manifesto_id', 'reboque_codigo_veiculo', 'reboque_placa', 'reboque_renavam',
-            'reboque_tara', 'reboque_capkg', 'reboque_capm3', 'reboque_tpcar', 'reboque_uf', 'reboque_cod_agporto',
-            'reboque_prop', 'reboque_prop_cpfcnpj', 'reboque_prop_rntrc', 'reboque_prop_nome', 'reboque_prop_ie',
-            'reboque_prop_uf', 'reboque_prop_tpprop'
-        );
+        $data = $request->all();
 
         if ($data['reboque_prop'] == 0) {
             $data['reboque_prop_cpfcnpj'] = '';
