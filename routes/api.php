@@ -56,7 +56,7 @@ Route::group([
     Route::post('me', [AuthController::class,'me']);
 
 });
-// Route::group(['middleware' => ['apiJWT']], function(){
+Route::group(['middleware' => ['apiJWT']], function(){
 
     Route::resource('paises', PaisController::class);
     Route::resource('estados', EstadoController::class);
@@ -148,4 +148,4 @@ Route::group([
 
     Route::get('manifestos', [ManifestoController::class,'index']);
     Route::post('manifestos', [ManifestoController::class,'store']);
-// });
+ });

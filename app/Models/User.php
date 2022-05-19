@@ -56,4 +56,15 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // public function relacionamentos()
+    // {
+    //     return $this->hasMany(UserEmpresa::class);
+    // }
+
+    public function empresas()
+    {
+        return $this->belongsToMany(Empresa::class, 'user_empresas', 'user_id', 'empresa_id');
+    }
+
 }
