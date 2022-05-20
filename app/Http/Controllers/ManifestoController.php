@@ -19,7 +19,8 @@ class ManifestoController extends Controller
 
     public function index()
     {
-        return response()->json(Manifesto::get());
+        //return response()->json(Manifesto::get());
+        return $this->repository->index();
     }
 
     public function store(ManifestoStoreFormRequest $request)
@@ -39,6 +40,6 @@ class ManifestoController extends Controller
 
     public function destroy($id)
     {
-        //
+        return $this->repository->destroy($id);
     }
 }

@@ -6,6 +6,7 @@ use App\Constantes\Limite;
 use App\Models\ManifestoCondutor;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class CondutorStoreFormRequest extends FormRequest
 {
@@ -27,14 +28,13 @@ class CondutorStoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'manifesto_id' => ['required','integer', 'min:1'],
+            'manifesto_id' => ['required','integer', 'min:1',],
             'nome' => ['required','string', 'max:60', 'min:4'],
             'cpf' => [
                 'required',
                 'max:11',
                 'min:11',
                 function ($attribute, $value, $fail) {
-
                     if ($value != "")
                     {
                         if (!is_null($this->request->get('manifesto_id')))

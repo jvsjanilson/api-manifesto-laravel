@@ -2,9 +2,12 @@
 
 namespace App\Repositories;
 
+use App\Http\Requests\CondutorStoreFormRequest;
 use App\Models\Manifesto;
+use App\Validations\ManifestoValidation;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
 
 class ManifestoRepository extends Repository
 {
@@ -12,34 +15,17 @@ class ManifestoRepository extends Repository
     {
         parent::__construct($model);
     }
-    // {
-    //     "datahora": "2022-05-13",
-    //     "ufini": "RN",
-    //     "uffim": "PB",
-    //     "tipoemit": 1,
-    //     "tipotransp": 1,
-    //     "modal": 1,
-    //     "cunid": "01",
-    //     "valor_carga": 1.25,
-    //     "quant_carga": 100,
-    //     "infofisco": "Info Fisco",
-    //     "infocompl": "Info Complemento"
-    // }
+
     public function store(Request $request)
     {
         $manifesto = $request->all();
-       // dd($manifesto);
-
+        ManifestoValidation::validacoes($request);
         try {
             $created = Manifesto::create($manifesto);
             return response()->json($created,200);
-
         } catch (\Throwable $th) {
             return response()->json($th->getMessage());
         }
-
-
-
         // $veiculo_tracao = $request->only('vtracao_rntrc','vtracao_cint','vtracao_tpcar','vtracao_placa',
         //     'vtracao_tara','vtracao_renavam','vtracao_tprod','vtracao_capkg','vtracao_capm3','vtracao_uf',
         //     'vtracao_prop','vtracao_prop_tpprop','vtracao_prop_uf','vtracao_prop_nome','vtracao_prop_cpfcnpj',
@@ -58,7 +44,7 @@ class ManifestoRepository extends Repository
 
 
 
-         $condutores = $request->only('contratantes');
+
 
          // $rodolacres = $request->only('rodo-lacre');
          // $contratantes = $request->only('contratantes');
@@ -75,5 +61,45 @@ class ManifestoRepository extends Repository
 
 
 
+    }
+
+    public function destroy($id)
+    {
+        $reg = $this->model->find($id);
+
+        if ( !isset($reg)) {
+            return response()->json(
+                [
+                    'message'=> 'Registro não encontrado.',
+                ],
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
+        if ($reg->situacao != 1)
+        {
+            return response()->json(
+                ['message'=> 'Remoção não permitida'],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
+        }
+
+        try {
+            $reg->delete();
+            return response()->json(
+                    [
+                        'message'=> 'Removido com sucesso.',
+                    ],
+                    Response::HTTP_OK
+                );
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'message'=> env('APP_DEBUG') == true ? 'Error ao deletar: ' . $e->getMessage() : 'Error ao deletar',
+
+                ],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
     }
 }

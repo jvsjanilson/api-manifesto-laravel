@@ -35,7 +35,7 @@ class CreateManifestosTable extends Migration
             $table->string('cunid',2)->nullable();
             $table->string('infofisco')->nullable();
             $table->string('infocompl')->nullable();
-            $table->integer('situacao')->nullable()->default(1);
+            $table->integer('situacao')->nullable()->default(1); //1-Digitado, 2-Transmitido, 3-Encerrado, 4-Cancelado
             $table->string('xml')->nullable();
             $table->timestamps();
         });

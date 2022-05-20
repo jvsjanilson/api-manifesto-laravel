@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use App\Traits\ManifestoTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Manifesto extends Model
 {
     use HasFactory;
-    use ManifestoTrait;
+
     public $fillable = [
         'empresa_id',
         'modelo',
