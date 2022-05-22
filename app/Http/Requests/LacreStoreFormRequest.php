@@ -28,7 +28,8 @@ class LacreStoreFormRequest extends FormRequest
         return [
 
             'manifesto_id' => ['integer', 'min:1', Rule::requiredIf(function(){
-                return count($this->query->all()) == 0 ? true : false;
+                //dd($this->method() == 'GET');
+                return (count($this->query->all()) == 0) && ($this->method() == 'POST') ? true : false;
             })],
             'numero' => ['required', 'max:60',
                 function ($attribute, $value, $fail) {

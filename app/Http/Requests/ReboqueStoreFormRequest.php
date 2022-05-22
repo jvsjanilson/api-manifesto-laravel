@@ -29,7 +29,7 @@ class ReboqueStoreFormRequest extends FormRequest
     {
         return [
             'manifesto_id' => ['integer', 'min:1', Rule::requiredIf(function(){
-                return count($this->query->all()) == 0 ? true : false;
+                return (count($this->query->all()) == 0) && ($this->method() == 'POST') ? true : false;
             })],
             'reboque_prop' => ['required','integer', Rule::in([0,1])],
             'reboque_tara' => ['required','integer'],

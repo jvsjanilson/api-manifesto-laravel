@@ -27,7 +27,7 @@ class RodoLacreStoreFormRequest extends FormRequest
     {
         return [
             'manifesto_id' => ['integer', 'min:1', Rule::requiredIf(function(){
-                return count($this->query->all()) == 0 ? true : false;
+                return (count($this->query->all()) == 0) && ($this->method() == 'POST') ? true : false;
             })],
             'numero' => ['required', 'max:20', 'min:1',
                 function ($attribute, $value, $fail)

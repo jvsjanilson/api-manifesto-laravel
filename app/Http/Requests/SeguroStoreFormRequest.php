@@ -28,7 +28,7 @@ class SeguroStoreFormRequest extends FormRequest
     {
         return [
             'manifesto_id' => ['integer', 'min:1', Rule::requiredIf(function(){
-                return count($this->query->all()) == 0 ? true : false;
+                return (count($this->query->all()) == 0) && ($this->method() == 'POST') ? true : false;
             })],
             'resp_seg' => ['required', Rule::in([1,2])],
             'cpfcnpj' => ['required_if:resp_seg,2','max:18'],

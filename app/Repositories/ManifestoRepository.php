@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 
 use App\Models\Manifesto;
-use App\Validations\ManifestoValidation;
+use App\Validations\Validation;
 use Illuminate\Http\Request;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +19,7 @@ class ManifestoRepository extends Repository
     public function store(Request $request)
     {
         $manifesto = $request->all();
-        ManifestoValidation::validacoes($request);
+        Validation::validacoes($request);
         try {
             $created = Manifesto::create($manifesto);
             return response()->json($created,200);

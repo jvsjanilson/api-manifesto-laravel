@@ -30,7 +30,7 @@ class CteStoreFormRequest extends FormRequest
         return [
 
             'manifesto_id' => ['integer', 'min:1', Rule::requiredIf(function(){
-                return count($this->query->all()) == 0 ? true : false;
+                return (count($this->query->all()) == 0) && ($this->method() == 'POST') ? true : false;
             }),
             function($attribute, $value, $fail) {
                 if ($value != "")
