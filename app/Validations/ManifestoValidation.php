@@ -4,26 +4,15 @@ namespace App\Validations;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\CondutorStoreFormRequest;
 
 class ManifestoValidation
 {
 
     private static function validarCondutor($values) {
         foreach ($values as $condutor) {
-
-            $validateCondutor = Validator::make($condutor, [
-                'nome' => ['required'],
-                'cpf' => ['required']
-                ],
-                [
-
-                ],
-                [
-                    'nome' => 'Nome do condutor',
-                    'cpf' => 'CPF do condutor'
-                ]
-            );
-            $validateCondutor->validate();
+            $valida = new CondutorStoreFormRequest($condutor);
+            $valida->validate($valida->rules());
         }
 
     }

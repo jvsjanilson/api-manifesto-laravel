@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Http\Requests\CondutorStoreFormRequest;
+
 use App\Models\Manifesto;
 use App\Validations\ManifestoValidation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+
 use Symfony\Component\HttpFoundation\Response;
 
 class ManifestoRepository extends Repository

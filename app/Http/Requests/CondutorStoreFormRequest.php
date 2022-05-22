@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Constantes\Limite;
 use App\Models\ManifestoCondutor;
+
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -28,7 +29,10 @@ class CondutorStoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'manifesto_id' => ['required','integer', 'min:1',],
+            //'manifesto_id' => ['required','integer', 'min:1',],
+            'manifesto_id' => ['integer', 'min:1', Rule::requiredIf(function(){
+                return count($this->query->all()) == 0 ? true : false;
+            })],
             'nome' => ['required','string', 'max:60', 'min:4'],
             'cpf' => [
                 'required',
