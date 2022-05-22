@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Funcoes;
 use App\Models\ManifestoPedagio;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PedagioStoreFormRequest extends FormRequest
 {
@@ -26,7 +27,9 @@ class PedagioStoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'manifesto_id' => ['required', 'integer', 'min:1'],
+            'manifesto_id' => ['integer', 'min:1', Rule::requiredIf(function(){
+                return count($this->query->all()) == 0 ? true : false;
+            })],
             'cnpj_fornecedor' => ['required'],
             'numero_comprovante' => ['required', 'integer',
                 function ($attribute, $value, $fail)

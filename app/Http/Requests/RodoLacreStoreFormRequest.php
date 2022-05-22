@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\ManifestoRodoLacre;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RodoLacreStoreFormRequest extends FormRequest
 {
@@ -25,7 +26,9 @@ class RodoLacreStoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'manifesto_id' => ['required', 'integer','min:1'],
+            'manifesto_id' => ['integer', 'min:1', Rule::requiredIf(function(){
+                return count($this->query->all()) == 0 ? true : false;
+            })],
             'numero' => ['required', 'max:20', 'min:1',
                 function ($attribute, $value, $fail)
                 {

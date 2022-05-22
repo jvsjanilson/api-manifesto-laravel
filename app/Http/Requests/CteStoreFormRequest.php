@@ -6,6 +6,7 @@ use App\Constantes\Limite;
 use App\Models\ManifestoCte;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class CteStoreFormRequest extends FormRequest
 {
@@ -27,27 +28,28 @@ class CteStoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'manifesto_id' => [
-                'required',
-                'integer',
-                'min:1',
-                function($attribute, $value, $fail) {
-                    if ($value != "")
-                    {
-                        if (!is_null($this->request->get('manifesto_id')))
-                        {
-                            $count = ManifestoCte::select(DB::raw('count(*) as total'))
-                                ->where('manifesto_id', $this->request->get('manifesto_id'))
-                                ->get()[0]['total'];
 
-                            if ($count >= Limite::NUMERO_MAXIMO_CTE)
-                            {
-                                $fail('Número máximo é ' . strval(Limite::NUMERO_MAXIMO_CTE). '.');
-                            }
+            'manifesto_id' => ['integer', 'min:1', Rule::requiredIf(function(){
+                return count($this->query->all()) == 0 ? true : false;
+            }),
+            function($attribute, $value, $fail) {
+                if ($value != "")
+                {
+                    if (!is_null($this->request->get('manifesto_id')))
+                    {
+                        $count = ManifestoCte::select(DB::raw('count(*) as total'))
+                            ->where('manifesto_id', $this->request->get('manifesto_id'))
+                            ->get()[0]['total'];
+
+                        if ($count >= Limite::NUMERO_MAXIMO_CTE)
+                        {
+                            $fail('Número máximo é ' . strval(Limite::NUMERO_MAXIMO_CTE). '.');
                         }
                     }
                 }
+            }
             ],
+
             'municipio_id' => ['required', 'integer'],
             'chave' => [
                 'required',

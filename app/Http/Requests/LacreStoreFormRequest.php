@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\ManifestoLacre;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class LacreStoreFormRequest extends FormRequest
 {
@@ -25,7 +26,10 @@ class LacreStoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'manifesto_id' => ['required','integer', 'min:1'],
+
+            'manifesto_id' => ['integer', 'min:1', Rule::requiredIf(function(){
+                return count($this->query->all()) == 0 ? true : false;
+            })],
             'numero' => ['required', 'max:60',
                 function ($attribute, $value, $fail) {
                     if ($value != "")

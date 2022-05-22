@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\ManifestoSeguroAverbacao;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SeguroAverbacaoStoreFormRequest extends FormRequest
 {
@@ -25,7 +26,9 @@ class SeguroAverbacaoStoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'manifesto_id' => ['required','integer'],
+            'manifesto_id' => ['integer', 'min:1', Rule::requiredIf(function(){
+                return count($this->query->all()) == 0 ? true : false;
+            })],
             'manifesto_seguro_id' => ['required','integer', 'min:1'],
             'numero' => ['required',
                 function ($attribute, $value, $fail)

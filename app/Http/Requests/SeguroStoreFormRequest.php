@@ -27,7 +27,9 @@ class SeguroStoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'manifesto_id' => ['required', 'integer', 'min:1'],
+            'manifesto_id' => ['integer', 'min:1', Rule::requiredIf(function(){
+                return count($this->query->all()) == 0 ? true : false;
+            })],
             'resp_seg' => ['required', Rule::in([1,2])],
             'cpfcnpj' => ['required_if:resp_seg,2','max:18'],
             'nome_seguradora' => ['required_if:resp_seg,2', 'max:30'],

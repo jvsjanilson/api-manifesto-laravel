@@ -6,6 +6,7 @@ use App\Constantes\Limite;
 use App\Models\ManifestoAutorizacao;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class AutorizacaoDownloadStoreFormRequest extends FormRequest
 {
@@ -27,7 +28,9 @@ class AutorizacaoDownloadStoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'manifesto_id' => ['required', 'integer', 'min:1'],
+            'manifesto_id' => ['integer', 'min:1', Rule::requiredIf(function(){
+                return count($this->query->all()) == 0 ? true : false;
+            })],
             'cpfcnpj' => ['required',
                 function ($attribute, $value, $fail) {
 

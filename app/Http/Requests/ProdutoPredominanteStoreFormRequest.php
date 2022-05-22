@@ -28,7 +28,9 @@ class ProdutoPredominanteStoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'manifesto_id' => ['required', 'integer', 'min:1'],
+            'manifesto_id' => ['integer', 'min:1', Rule::requiredIf(function(){
+                return count($this->query->all()) == 0 ? true : false;
+            })],
             'tpcarga' => ['required', 'string',  Rule::in(['01','02','03','04','05','06','07','08','09','10','11'])],
             'xprod' => ['required','string','max:120','min:2',
                 function ($attribute, $value, $fail)
