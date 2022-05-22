@@ -49,6 +49,9 @@ class Validation
 
         if (isset($validationData['rodo_lacres']))
             new RodoLacreValidation($validationData['rodo_lacres']);
+
+        if (isset($validationData['seguros']))
+            new SeguroValidation($validationData['seguros']);
     }
 }
 
