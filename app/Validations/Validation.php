@@ -46,6 +46,9 @@ class Validation
 
         if (isset($validationData['reboques']))
             new ReboqueValidation($validationData['reboques']);
+
+        if (isset($validationData['rodo_lacres']))
+            new RodoLacreValidation($validationData['rodo_lacres']);
     }
 }
 
