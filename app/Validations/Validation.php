@@ -43,6 +43,9 @@ class Validation
 
         if (isset($validationData['produto_predominante']))
             new ProdutoPredominanteValidation($validationData['produto_predominante']);
+
+        if (isset($validationData['reboques']))
+            new ReboqueValidation($validationData['reboques']);
     }
 }
 
