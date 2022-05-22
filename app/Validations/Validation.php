@@ -34,6 +34,15 @@ class Validation
 
         if (isset($validationData['nfes']))
             new NfeValidation($validationData['nfes']);
+
+        if (isset($validationData['pedagios']))
+            new PedagioValidation($validationData['pedagios']);
+
+        if (isset($validationData['percuro_estados']))
+            new PercursoEstadoValidation($validationData['percuro_estados']);
+
+        if (isset($validationData['produto_predominante']))
+            new ProdutoPredominanteValidation($validationData['produto_predominante']);
     }
 }
 
