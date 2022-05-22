@@ -25,6 +25,15 @@ class Validation
 
         if (isset($validationData['lacres']))
             new LacreValidation($validationData['lacres']);
+
+        if (isset($validationData['municipios_carregamento']))
+            new MunicipioCarregamentoValidation($validationData['municipios_carregamento']);
+
+        if (isset($validationData['municipios_descarregamento']))
+            new MunicipioDescarregamentoValidation($validationData['municipios_descarregamento']);
+
+        if (isset($validationData['nfes']))
+            new NfeValidation($validationData['nfes']);
     }
 }
 
