@@ -20,9 +20,29 @@ class ManifestoRepository extends Repository
     {
         $manifesto = $request->all();
         Validation::validacoes($request);
+
+
         try {
             $created = Manifesto::create($manifesto);
-            return response()->json($created,200);
+            $created->condutors()->createMany($manifesto['condutores']);
+            $created->contratantes()->createMany($manifesto['contratantes']);
+            $created->ciots()->createMany($manifesto['ciots']);
+            $created->autorizacaos()->createMany($manifesto['autorizacaos']);
+            $created->ctes()->createMany($manifesto['ctes']);
+            $created->lacres()->createMany($manifesto['lacres']);
+            $created->municipiosCarregamento()->createMany($manifesto['municipios_carregamento']);
+            $created->municipiosDescarregamento()->createMany($manifesto['municipios_descarregamento']);
+            $created->nfes()->createMany($manifesto['nfes']);
+            $created->pedagios()->createMany($manifesto['pedagios']);
+            $created->percuroEstados()->createMany($manifesto['percuro_estados']);
+            $created->produtoPredominante()->createMany($manifesto['produto_predominante']);
+            $created->reboques()->createMany($manifesto['reboques']);
+            $created->rodoLacres()->createMany($manifesto['rodo_lacres']);
+            $created->seguros()->createMany($manifesto['seguros']);
+            $created->veiculoTracao()->create($manifesto['veiculo_tracao']);
+
+
+            return response()->json($created,201);
         } catch (\Throwable $th) {
             return response()->json($th->getMessage());
         }
@@ -41,9 +61,6 @@ class ManifestoRepository extends Repository
         // $mun_descarregamento_uf = $request->only('municipio-descarregamento');
         // $nfes_municipio = $request->only('nfes-municipio');
         // $ctes_municipio = $request->only('ctes-municipio');
-
-
-
 
 
          // $rodolacres = $request->only('rodo-lacre');
