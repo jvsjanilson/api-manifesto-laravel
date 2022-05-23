@@ -34,10 +34,11 @@ class ManifestoStoreFormRequest extends FormRequest
             'tipotransp' => ['required','integer', Rule::in([0,1,2,3])],
             'modal' => ['required','integer', Rule::in([1,2,3,4])],
             'condutores' => ['required'],
+            'municipios_carregamento'=> ['required'],
 
             'veiculo_tracao.vtracao_prop' => [Rule::in(0,1)],
             'veiculo_tracao.vtracao_placa' => ['required', 'regex:/[A-Z]{3}[0-9][0-9A-Z][0-9]{2}/'],
-            'veiculo_tracao.vtracao_tara' => ['required', 'integer'],
+            'veiculo_tracao.vtracao_tara' => ['required', 'integer', 'min:1'],
             'veiculo_tracao.vtracao_tprod' => ['required', Rule::in([1,2,3,4,5,6])],
             'veiculo_tracao.vtracao_tpcar' => ['required', Rule::in([1,2,3,4,5])],
             'veiculo_tracao.vtracao_uf' => ['required', 'string', 'min:2', 'max:2'],

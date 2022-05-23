@@ -20,6 +20,7 @@ class ManifestoReboqueTest extends TestCase
             'reboque_placa' => 'MLD4125',
             'reboque_tara' => 1000,
             'reboque_capkg' => 10000,
+            'reboque_prop_tpprop'=>0
         ]);
 
         $response->assertStatus(201);

@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Models\ManifestoNfe;
 use Tests\TestCase;
 
-class ManifestoMunicipioNfeTest extends TestCase
+class ManifestoNfeTest extends TestCase
 {
     /**
      * A basic feature test example.

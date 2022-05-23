@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Models\ManifestoPedagio;
 use Tests\TestCase;
 
-class ManifestoMunicipioPedagioTest extends TestCase
+class ManifestoPedagioTest extends TestCase
 {
     /**
      * A basic feature test example.

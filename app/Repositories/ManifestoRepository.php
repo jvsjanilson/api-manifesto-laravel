@@ -20,7 +20,7 @@ class ManifestoRepository extends Repository
     {
         $manifesto = $request->all();
         Validation::validacoes($request);
-      //  dd($manifesto['veiculo_tracao']);
+//        dd($manifesto);
 
 
         try {

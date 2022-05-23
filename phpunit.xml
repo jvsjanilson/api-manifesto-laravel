@@ -8,9 +8,32 @@
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
-        <testsuite name="Feature">
+        <!-- <testsuite name="Feature">
             <directory suffix="Test.php">./tests/Feature</directory>
+        </testsuite> -->
+        <!-- Obs: execute php artisan migrate:fresh -seed -->
+
+        <testsuite name="api_Manifesto">
+            <file>./tests/Feature/ManifestoTest.php</file>
+            <file>./tests/Feature/ManifestoAutorizacaoDownloadTest.php</file>
+            <file>./tests/Feature/ManifestoCiotTest.php</file>
+            <file>./tests/Feature/ManifestoCondutorTest.php</file>
+            <file>./tests/Feature/ManifestoContratanteTest.php</file>
+            <file>./tests/Feature/ManifestoCteTest.php</file>
+            <file>./tests/Feature/ManifestoLacreTest.php</file>
+            <file>./tests/Feature/ManifestoMunicipioCarregamentoTest.php</file>
+            <file>./tests/Feature/ManifestoMunicipioDescarregamentoTest.php</file>
+            <file>./tests/Feature/ManifestoNfeTest.php</file>
+            <file>./tests/Feature/ManifestoPedagioTest.php</file>
+            <file>./tests/Feature/ManifestoPercursoEstadoTest.php</file>
+            <file>./tests/Feature/ManifestoProdutoPredominanteTest.php</file>
+            <file>./tests/Feature/ManifestoReboqueTest.php</file>
+            <file>./tests/Feature/ManifestoRodoLacreTest.php</file>
+            <file>./tests/Feature/ManifestoSeguroAverbacaoTest.php</file>
+            <file>./tests/Feature/ManifestoSeguroTest.php</file>
+            <file>./tests/Feature/ManifestoDestroyTest.php</file>
         </testsuite>
+
     </testsuites>
     <coverage processUncoveredFiles="true">
         <include>

@@ -32,8 +32,8 @@ class ReboqueStoreFormRequest extends FormRequest
                 return (count($this->query->all()) == 0) && ($this->method() == 'POST') ? true : false;
             })],
             'reboque_prop' => ['required','integer', Rule::in([0,1])],
-            'reboque_tara' => ['required','integer'],
-            'reboque_capkg' => ['required','integer'],
+            'reboque_tara' => ['required','integer', 'min:1'],
+            'reboque_capkg' => ['required','integer', 'min:1'],
             'reboque_prop_nome' => ['required_if:reboque_prop,1', 'max:60'],
             'reboque_prop_cpfcnpj' => ['required_if:reboque_prop,1', 'max:18'],
             'reboque_prop_uf' => ['required_if:reboque_prop,1', 'max:2'],

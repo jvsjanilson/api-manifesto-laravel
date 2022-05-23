@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\UserEmpresa;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,7 +18,8 @@ class DatabaseSeeder extends Seeder
             EstadoSeeder::class,
             MunicipioSeeder::class,
             EmpresaSeeder::class,
-            UserEmpresa::class,
+            UsersSeeder::class,
+            UserEmpresaSeeder::class,
         ]);
     }
 }
