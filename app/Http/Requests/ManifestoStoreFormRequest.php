@@ -34,18 +34,6 @@ class ManifestoStoreFormRequest extends FormRequest
             'tipotransp' => ['required','integer', Rule::in([0,1,2,3])],
             'modal' => ['required','integer', Rule::in([1,2,3,4])],
             'condutores' => ['required'],
-            // 'contratantes' => [
-            //     function($attribute, $value, $fail) {
-            //        if (isset($value))
-            //        {
-            //            foreach ($value as $v) {
-            //                if (is_null($v['cpfcnpj'])) {
-            //                    $fail('Informe o CPF/CNPJ do contratante');
-            //                }
-            //            }
-            //        }
-            //     }
-            // ],
             'chave' => [
                 'nullable',
                 'max:44',

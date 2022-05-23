@@ -11,47 +11,20 @@ class Validation
         $validationData = $request->all();
         new CondutorValidation($validationData['condutores']);
 
-        if (isset($validationData['contratantes']))
-            new ContratanteValidation($validationData['contratantes']);
-
-        if (isset($validationData['ciots']))
-            new CiotValidation($validationData['ciots']);
-
-        if (isset($validationData['autorizacaos']))
-            new AutorizacaoValidation($validationData['autorizacaos']);
-
-        if (isset($validationData['ctes']))
-            new CteValidation($validationData['ctes']);
-
-        if (isset($validationData['lacres']))
-            new LacreValidation($validationData['lacres']);
-
-        if (isset($validationData['municipios_carregamento']))
-            new MunicipioCarregamentoValidation($validationData['municipios_carregamento']);
-
-        if (isset($validationData['municipios_descarregamento']))
-            new MunicipioDescarregamentoValidation($validationData['municipios_descarregamento']);
-
-        if (isset($validationData['nfes']))
-            new NfeValidation($validationData['nfes']);
-
-        if (isset($validationData['pedagios']))
-            new PedagioValidation($validationData['pedagios']);
-
-        if (isset($validationData['percuro_estados']))
-            new PercursoEstadoValidation($validationData['percuro_estados']);
-
-        if (isset($validationData['produto_predominante']))
-            new ProdutoPredominanteValidation($validationData['produto_predominante']);
-
-        if (isset($validationData['reboques']))
-            new ReboqueValidation($validationData['reboques']);
-
-        if (isset($validationData['rodo_lacres']))
-            new RodoLacreValidation($validationData['rodo_lacres']);
-
-        if (isset($validationData['seguros']))
-            new SeguroValidation($validationData['seguros']);
+        isset($validationData['contratantes']) ? new ContratanteValidation($validationData['contratantes']) : null;
+        isset($validationData['ciots']) ? new CiotValidation($validationData['ciots']) : null;
+        isset($validationData['autorizacaos']) ? new AutorizacaoValidation($validationData['autorizacaos']) : null;
+        isset($validationData['ctes']) ? new CteValidation($validationData['ctes']) : null;
+        isset($validationData['lacres']) ? new LacreValidation($validationData['lacres']) : null;
+        isset($validationData['municipios_carregamento']) ? new MunicipioCarregamentoValidation($validationData['municipios_carregamento']) : null;
+        isset($validationData['municipios_descarregamento']) ? new MunicipioDescarregamentoValidation($validationData['municipios_descarregamento']) : null;
+        isset($validationData['nfes']) ? new NfeValidation($validationData['nfes']) : null;
+        isset($validationData['pedagios']) ? new PedagioValidation($validationData['pedagios']) : null;
+        isset($validationData['percuro_estados']) ? new PercursoEstadoValidation($validationData['percuro_estados']) : null;
+        isset($validationData['produto_predominante']) ? new ProdutoPredominanteValidation($validationData['produto_predominante']) : null;
+        isset($validationData['reboques']) ? new ReboqueValidation($validationData['reboques']) : null;
+        isset($validationData['rodo_lacres']) ? new RodoLacreValidation($validationData['rodo_lacres']) : null;
+        isset($validationData['seguros']) ? new SeguroValidation($validationData['seguros']) : null;
     }
 }
 
