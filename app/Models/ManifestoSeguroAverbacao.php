@@ -9,4 +9,5 @@ class ManifestoSeguroAverbacao extends Model
 {
     use HasFactory;
     public $fillable = ['manifesto_id', 'manifesto_seguro_id', 'numero'];
+    public $hidden = ['created_at','updated_at', 'manifesto_id'];
 }

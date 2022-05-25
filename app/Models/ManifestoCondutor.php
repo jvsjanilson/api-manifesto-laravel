@@ -9,6 +9,7 @@ class ManifestoCondutor extends Model
 {
     use HasFactory;
     public $fillable = ['nome', 'cpf','manifesto_id'];
+    public $hidden = ['created_at','updated_at', 'manifesto_id'];
 
     public function getCpfAttribute($value)
     {

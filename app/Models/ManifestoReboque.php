@@ -27,6 +27,7 @@ class ManifestoReboque extends Model
         'reboque_prop_tpprop',
         'reboque_codigo_veiculo'
     ];
+    public $hidden = ['created_at','updated_at', 'manifesto_id'];
 
 
     public function getReboquePropCpfcnpjAttribute($value) {

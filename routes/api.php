@@ -145,7 +145,7 @@ Route::group([
         'destroy'
     ]);
 
-
+    Route::get('manifestos/{manifesto}', [ManifestoController::class,'show']);
     Route::get('manifestos', [ManifestoController::class,'index']);
     Route::post('manifestos', [ManifestoController::class,'store']);
     Route::delete('manifestos/{manifesto}', [ManifestoController::class,'destroy']);

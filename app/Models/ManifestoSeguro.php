@@ -9,7 +9,7 @@ class ManifestoSeguro extends Model
 {
     use HasFactory;
     public $fillable = ['manifesto_id', 'resp_seg','cpfcnpj','nome_seguradora','cnpj_seguradora','numero_apolice'];
-
+    public $hidden = ['created_at','updated_at', 'manifesto_id'];
     /**
      * Relations
      */

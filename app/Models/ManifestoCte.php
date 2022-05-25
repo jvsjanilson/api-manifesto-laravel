@@ -9,6 +9,7 @@ class ManifestoCte extends Model
 {
     use HasFactory;
     public $fillable = ['manifesto_id', 'municipio_id', 'chave'];
+    public $hidden = ['created_at','updated_at', 'manifesto_id'];
 
 
     public function municipio()

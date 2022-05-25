@@ -9,6 +9,7 @@ class ManifestoContratante extends Model
 {
     use HasFactory;
     public $fillable = ['manifesto_id','cpfcnpj'];
+    public $hidden = ['created_at','updated_at', 'manifesto_id'];
 
     public function getCpfcnpjAttribute($value)
     {

@@ -9,4 +9,5 @@ class ManifestoLacre extends Model
 {
     use HasFactory;
     public $fillable = ['manifesto_id','numero'];
+    public $hidden = ['created_at','updated_at', 'manifesto_id'];
 }

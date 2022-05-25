@@ -9,4 +9,5 @@ class ManifestoProdutoPredominante extends Model
 {
     use HasFactory;
     public $fillable = ['manifesto_id','tpcarga', 'cean', 'ncm','xprod'];
+    public $hidden = ['created_at','updated_at', 'manifesto_id'];
 }

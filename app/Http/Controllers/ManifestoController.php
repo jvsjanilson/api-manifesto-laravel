@@ -19,7 +19,7 @@ class ManifestoController extends Controller
 
     public function index()
     {
-        //return response()->json(Manifesto::get());
+
         return $this->repository->index();
     }
 
@@ -30,7 +30,7 @@ class ManifestoController extends Controller
 
     public function show($id)
     {
-        //
+        return $this->repository->show($id);
     }
 
     public function update(Request $request, $id)

@@ -9,6 +9,7 @@ class ManifestoMunicipioCarregamento extends Model
 {
     use HasFactory;
     public $fillable = ['manifesto_id','estado_id','municipio_id'];
+    public $hidden = ['created_at','updated_at', 'manifesto_id'];
 
     public function estado()
     {

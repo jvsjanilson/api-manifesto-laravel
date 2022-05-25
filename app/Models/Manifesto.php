@@ -33,6 +33,7 @@ class Manifesto extends Model
         'situacao',
         'xml',
     ];
+    //public $hidden = ['created_at','updated_at'];
 
 
 

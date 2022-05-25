@@ -12,6 +12,7 @@ class ManifestoNfe extends Model
 
     public $fillable = ['manifesto_id', 'municipio_id', 'chave', 'segcodbarras'];
     public $table = 'manifesto_nfes';
+    public $hidden = ['created_at','updated_at', 'manifesto_id'];
 
     public function municipio()
     {

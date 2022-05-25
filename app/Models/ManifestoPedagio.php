@@ -15,6 +15,7 @@ class ManifestoPedagio extends Model
         'numero_comprovante',
         'valor_vale'
     ];
+    public $hidden = ['created_at','updated_at', 'manifesto_id'];
 
 
     /**
