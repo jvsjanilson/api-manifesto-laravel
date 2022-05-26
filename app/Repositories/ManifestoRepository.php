@@ -60,7 +60,7 @@ class ManifestoRepository extends Repository
         Validation::validacoes($request);
 
         try {
-            $created = Manifesto::create($manifesto);
+            $created = $this->model->create($manifesto);
             $created->condutors()->createMany($manifesto['condutores']);
             $created->contratantes()->createMany($manifesto['contratantes']);
             $created->ciots()->createMany($manifesto['ciots']);

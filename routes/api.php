@@ -24,6 +24,7 @@ use App\Http\Controllers\ManifestoSeguroAverbacaoController;
 use App\Http\Controllers\ManifestoSeguroController;
 use App\Http\Controllers\ManifestoReboqueController;
 use App\Http\Controllers\ManifestoRodoLacreController;
+use App\Http\Controllers\MDFeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,9 +40,9 @@ use App\Http\Controllers\ManifestoRodoLacreController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::get('msg', function() {
-    return response()->json(['msg'=> 'Bye bye']);
-})->name('msg');
+// Route::get('msg', function() {
+//     return response()->json(['msg'=> 'Bye bye']);
+// })->name('msg');
 
 Route::group([
 
@@ -56,7 +57,9 @@ Route::group([
     Route::post('me', [AuthController::class,'me']);
 
 });
-// Route::group(['middleware' => ['apiJWT']], function(){
+
+
+ Route::group(['middleware' => ['apiJWT']], function(){
 
     Route::resource('paises', PaisController::class);
     Route::resource('estados', EstadoController::class);
@@ -150,4 +153,10 @@ Route::group([
     Route::post('manifestos', [ManifestoController::class,'store']);
     Route::delete('manifestos/{manifesto}', [ManifestoController::class,'destroy']);
 
-//  });
+
+});
+Route::get('mdfes/servico/status', [MDFeController::class, 'statusServico']);
+Route::get('mdfes/servico/enviar/{id}', [MDFeController::class, 'enviar']);
+Route::get('mdfes/servico/damdfe/{id}', [MDFeController::class, 'damdfe']);
+Route::get('mdfes/servico/encerrar/{id}', [MDFeController::class, 'encerrar']);
+Route::get('mdfes/servico/cancelar/{id}', [MDFeController::class, 'cancelar']);

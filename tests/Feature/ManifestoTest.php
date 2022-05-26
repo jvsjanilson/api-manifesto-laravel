@@ -157,6 +157,12 @@ class ManifestoTest extends TestCase
         $response->assertStatus(201);
     }
 
+    public function test_show_manifesto()
+    {
+        $response = $this->get('/api/manifestos/1');
+        $response->assertStatus(200);
+    }
+
     public function test_destroy_manifesto_produto_predominante()
     {
         $count = 0;
