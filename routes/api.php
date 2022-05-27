@@ -40,9 +40,6 @@ use App\Http\Controllers\MDFeController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-// Route::get('msg', function() {
-//     return response()->json(['msg'=> 'Bye bye']);
-// })->name('msg');
 
 Route::group([
 
@@ -60,7 +57,6 @@ Route::group([
 
 
  Route::group(['middleware' => ['apiJWT']], function(){
-
     Route::resource('paises', PaisController::class);
     Route::resource('estados', EstadoController::class);
     Route::resource('municipios', MunicipioController::class);
@@ -155,7 +151,7 @@ Route::group([
 
 
 });
-Route::get('mdfes/servico/status', [MDFeController::class, 'statusServico']);
+Route::get('mdfes/servico/status/{empresa}', [MDFeController::class, 'statusServico']);
 Route::get('mdfes/servico/enviar/{id}', [MDFeController::class, 'enviar']);
 Route::get('mdfes/servico/damdfe/{id}', [MDFeController::class, 'damdfe']);
 Route::get('mdfes/servico/encerrar/{id}', [MDFeController::class, 'encerrar']);

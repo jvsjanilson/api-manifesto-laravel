@@ -11,6 +11,8 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "nfephp-org/sped-da": "dev-master",
+        "nfephp-org/sped-mdfe": "dev-master",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {

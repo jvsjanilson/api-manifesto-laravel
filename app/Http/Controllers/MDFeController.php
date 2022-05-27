@@ -14,9 +14,10 @@ class MDFeController extends Controller
         $this->repository = $repository;
     }
 
-    public function statusServico()
+    public function statusServico($empresa)
     {
-        return $this->repository->statusServico();
+        //return 'ola';
+        return $this->repository->statusServico($empresa);
     }
 
     public function enviar($id)

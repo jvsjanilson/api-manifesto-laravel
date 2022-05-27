@@ -36,6 +36,10 @@ class Manifesto extends Model
     //public $hidden = ['created_at','updated_at'];
 
 
+    public function empresa()
+    {
+        return $this->belongsTo(Empresa::class);
+    }
 
     public function condutors()
     {

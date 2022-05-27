@@ -2,7 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Mdfe\MontarXML;
 use App\Models\Manifesto;
+
+use App\Utils\ConfigTools;
 
 class MDFeRepository extends Repository
 {
@@ -11,15 +14,16 @@ class MDFeRepository extends Repository
     {
         parent::__construct($model);
     }
-    
-    public function statusServico()
+
+    public function statusServico($empresa)
     {
-        return response()->json(['message' => 'Status do Servico'],200);
+        return ConfigTools::statusServico($empresa);
     }
 
     public function enviar($id)
     {
-        return response()->json(['message' => 'Enviar -> ' . $id],200);
+        MontarXML::montar($id);
+        //return response()->json(['message' => 'Enviar -> ' . $id],200);
     }
 
     public function damdfe($id)
