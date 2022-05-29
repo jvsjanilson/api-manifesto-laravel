@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Mdfe;
+namespace App\Fiscal\Manifesto;
 
-class GrupoMunicipioCarregamento
+use App\Fiscal\Grupo;
+
+class GrupoMunicipioCarregamento extends Grupo
 {
-    public static function load($make, $manifesto)
+    public static function load($make, $query)
     {
-        foreach ($manifesto->municipioscarregamento as $mc )
+        foreach ($query->municipioscarregamento as $mc )
         {
             $infMunCarrega = new \stdClass();
             $infMunCarrega->cMunCarrega = $mc->municipio->cod_ibge;

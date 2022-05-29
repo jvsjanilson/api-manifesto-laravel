@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Mdfe;
+namespace App\Fiscal\Manifesto;
 
-use App\Models\Funcoes;
+use App\Fiscal\Grupo;
 
-class GrupoProdutoPredominante
+class GrupoProdutoPredominante extends Grupo
 {
-    public static function load($make, $manifesto)
+    public static function load($make, $query)
     {
 
-        if (!is_null($manifesto->prodpred)) {
+        if (!is_null($query->prodpred)) {
 
             $prodPred = new \stdClass();
-            $prodPred->tpCarga = $manifesto->prodpred->tpcarga;
-            $prodPred->xProd = $manifesto->prodpred->xprod;
-            $prodPred->cEAN = $manifesto->prodpred->cean;
-            $prodPred->NCM = $manifesto->prodpred->ncm;
+            $prodPred->tpCarga = $query->prodpred->tpcarga;
+            $prodPred->xProd = $query->prodpred->xprod;
+            $prodPred->cEAN = $query->prodpred->cean;
+            $prodPred->NCM = $query->prodpred->ncm;
 
             //campos obrigatorios
             $localCarrega = new \stdClass();

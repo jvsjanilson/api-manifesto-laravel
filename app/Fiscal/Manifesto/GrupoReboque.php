@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Mdfe;
+namespace App\Fiscal\Manifesto;
 
+use App\Fiscal\Grupo;
 use App\Models\Funcoes;
 
-class GrupoReboque
+class GrupoReboque extends Grupo
 {
-    public static function load($make, $manifesto)
+    public static function load($make, $query)
     {
-        if ($manifesto->modal == 1) {
-            foreach ($manifesto->reboques as $r) {
+        if ($query->modal == 1) {
+            foreach ($query->reboques as $r) {
 
                 $veicReboque = new \stdClass();
                 $veicReboque->cInt = $r->reboque_codigo_veiculo; //'02';

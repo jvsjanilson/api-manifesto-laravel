@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Mdfe;
+namespace App\Fiscal\Manifesto;
 
+use App\Fiscal\Grupo;
 use App\Models\Funcoes;
 
-class GrupoAutorizacaoXml
+class GrupoAutorizacaoXml extends Grupo
 {
-    public static function load($make, $manifesto)
+    public static function load($make, $query)
     {
-        foreach ($manifesto->autorizacaos as $a) {
+        foreach ($query->autorizacaos as $a) {
             $std = new \stdClass();
             $std->CNPJ = Funcoes::disFormatCPFCNPJ($a->cpfcnpj);
             $make->tagautXML($std);

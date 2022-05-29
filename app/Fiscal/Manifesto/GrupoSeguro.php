@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Mdfe;
+namespace App\Fiscal\Manifesto;
 
+use App\Fiscal\Grupo;
 use App\Models\Funcoes;
 use App\Models\ManifestoSeguroAverbacao;
 
-class GrupoSeguro
+class GrupoSeguro extends Grupo
 {
-    public static function load($make, $manifesto)
+    public static function load($make, $query)
     {
 
-        foreach ($manifesto->seguros as $s) {
+        foreach ($query->seguros as $s) {
             $std = new \stdClass();
             $std->respSeg = $s->resp_seg;
             $std->CNPJ = Funcoes::disFormatCPFCNPJ($s->cpfcnpj);
@@ -23,7 +24,7 @@ class GrupoSeguro
 
             $aAverbs = [];
 
-            $averbacoes = ManifestoSeguroAverbacao::where('manifesto_id', $manifesto->id)
+            $averbacoes = ManifestoSeguroAverbacao::where('manifesto_id', $query->id)
                 ->where('manifesto_seguro_id', $s->id)
                 ->get();
 

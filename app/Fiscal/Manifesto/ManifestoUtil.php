@@ -1,15 +1,21 @@
 <?php
 
-namespace App\Mdfe;
+namespace App\Fiscal\Manifesto;
 
 use App\Models\Manifesto;
 
 use NFePHP\MDFe\Make;
 
 
-class MontarXML
+abstract class ManifestoUtil
 {
-    public static function montar($id)
+
+    public static function envia($id)
+    {
+        self::monta($id);
+    }
+
+    private static function monta($id)
     {
         $manifesto = Manifesto::find($id);
         $make = new Make();

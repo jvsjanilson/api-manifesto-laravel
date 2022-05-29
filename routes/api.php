@@ -152,7 +152,7 @@ Route::group([
 
 });
 Route::get('mdfes/servico/status/{empresa}', [MDFeController::class, 'statusServico']);
-Route::get('mdfes/servico/enviar/{id}', [MDFeController::class, 'enviar']);
+Route::get('mdfes/servico/envia/{id}', [MDFeController::class, 'envia']);
 Route::get('mdfes/servico/damdfe/{id}', [MDFeController::class, 'damdfe']);
-Route::get('mdfes/servico/encerrar/{id}', [MDFeController::class, 'encerrar']);
-Route::get('mdfes/servico/cancelar/{id}', [MDFeController::class, 'cancelar']);
+Route::get('mdfes/servico/encerra/{id}', [MDFeController::class, 'encerra']);
+Route::get('mdfes/servico/cancela/{id}', [MDFeController::class, 'cancela']);

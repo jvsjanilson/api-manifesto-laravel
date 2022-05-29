@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Mdfe;
+namespace App\Fiscal\Manifesto;
 
+use App\Fiscal\Grupo;
 use App\Models\Funcoes;
 
-class GrupoCiot
+class GrupoCiot extends Grupo
 {
-    public static function load($make, $manifesto)
+    public static function load($make, $query)
     {
-        if ($manifesto->modal == 1) {
-            foreach ($manifesto->ciots as $c) {
+        if ($query->modal == 1) {
+            foreach ($query->ciots as $c) {
                 $infCIOT = new \stdClass();
                 $infCIOT->CIOT = $c->ciot;
 

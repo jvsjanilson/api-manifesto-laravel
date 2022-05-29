@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Mdfe;
+namespace App\Fiscal\Manifesto;
 
+use App\Fiscal\Grupo;
 use App\Models\Funcoes;
 
-class GrupoPedagio
+class GrupoPedagio extends Grupo
 {
-    public static function load($make, $manifesto)
+    public static function load($make, $query)
     {
-        if ($manifesto->modal == 1) {
-            foreach ($manifesto->pedagios as $p) {
+        if ($query->modal == 1) {
+            foreach ($query->pedagios as $p) {
                 $valePed = new \stdClass();
                 $valePed->CNPJForn = Funcoes::disFormatCPFCNPJ($p->cnpj_fornecedor);
 

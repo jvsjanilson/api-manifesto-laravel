@@ -20,9 +20,9 @@ class MDFeController extends Controller
         return $this->repository->statusServico($empresa);
     }
 
-    public function enviar($id)
+    public function envia($id)
     {
-        return $this->repository->enviar($id);
+        return $this->repository->envia($id);
     }
 
     public function damdfe($id)
@@ -30,13 +30,13 @@ class MDFeController extends Controller
        return $this->repository->damdfe($id);
     }
 
-    public function encerrar($id)
+    public function encerra($id)
     {
-        return $this->repository->encerrar($id);
+        return $this->repository->encerra($id);
     }
 
-    public function cancelar($id)
+    public function cancela($id)
     {
-        return $this->repository->cancelar($id);
+        return $this->repository->cancela($id);
     }
 }

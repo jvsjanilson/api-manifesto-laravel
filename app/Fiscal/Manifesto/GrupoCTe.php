@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Mdfe;
+namespace App\Fiscal\Manifesto;
 
-use App\Models\Funcoes;
+use App\Fiscal\Grupo;
 
-class GrupoCTe
+class GrupoCTe extends Grupo
 {
-    public static function load($make, $manifesto)
+    public static function load($make, $query)
     {
-        foreach ($manifesto->ctes as $n) {
+        foreach ($query->ctes as $n) {
             $std = new \stdClass();
             $std->chCTe = $n->chave;
             $std->SegCodBarra = '';

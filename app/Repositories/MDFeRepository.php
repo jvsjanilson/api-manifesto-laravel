@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Mdfe\MontarXML;
+use App\Fiscal\Manifesto\ManifestoUtil;
 use App\Models\Manifesto;
 
 use App\Utils\ConfigTools;
@@ -20,9 +20,14 @@ class MDFeRepository extends Repository
         return ConfigTools::statusServico($empresa);
     }
 
-    public function enviar($id)
+    public function envia($id)
     {
-        MontarXML::montar($id);
+        try {
+
+            ManifestoUtil::envia($id);
+        } catch (\Throwable $th) {
+            return response()->json($th->getMessage(),501);
+        }
         //return response()->json(['message' => 'Enviar -> ' . $id],200);
     }
 
@@ -31,12 +36,12 @@ class MDFeRepository extends Repository
        return response()->json(['message' => 'DAMDFe -> ' . $id],200);
     }
 
-    public function encerrar($id)
+    public function encerra($id)
     {
         return response()->json(['message' => 'Encerrar -> ' . $id],200);
     }
 
-    public function cancelar($id)
+    public function cancela($id)
     {
         return response()->json(['message' => 'Cancelar -> ' . $id],200);
     }
