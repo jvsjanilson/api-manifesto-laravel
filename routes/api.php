@@ -56,9 +56,9 @@ Route::group([
 });
 
 
- Route::group(['middleware' => ['apiJWT']], function(){
-    Route::resource('paises', PaisController::class);
+Route::group(['middleware' => ['apiJWT']], function(){
     Route::resource('estados', EstadoController::class);
+    Route::resource('paises', PaisController::class);
     Route::resource('municipios', MunicipioController::class);
     Route::resource('empresas', EmpresaController::class);
 
