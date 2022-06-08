@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\UserEmpresa;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -26,6 +28,7 @@ class AuthController extends Controller
         $validation = request()->validate([
             'email' => 'required|string',
             'password' => 'required|string',
+            'empresa' => ['required', 'string']
         ]);
 
         $credentials = request(['email', 'password']);
@@ -34,7 +37,13 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->respondWithToken($token);
+        $userEmpresa = User::select('empresas.nome', 'empresas.uuid', 'empresas.cnpj')
+            ->join('user_empresas', 'user_empresas.user_id', '=', 'users.id')
+            ->join('empresas', 'user_empresas.empresa_id', '=','empresas.id')
+            ->where('users.email', auth('api')->user()->email)
+            ->get();
+
+        return $this->respondWithToken($token, $userEmpresa);
     }
 
     /**
@@ -81,8 +90,12 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken($token)
+    protected function respondWithToken($token, $empresa = null)
     {
+
+
+
+
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
@@ -91,6 +104,7 @@ class AuthController extends Controller
                 'name' => auth('api')->user()->name,
                 'email' => auth('api')->user()->email,
             ],
+            'empresa'=> $empresa
         ]);
     }
 }
