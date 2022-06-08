@@ -13,33 +13,34 @@ class EmpresaRepository extends Repository
     {
         parent::__construct($model);
     }
+
+
+
+    // public function store(Request $request)
+    // {
+    //     return parent::store($request);
+    // }
+
+
     public function store(Request $request)
     {
-        $validationData = Validator::make($request->all(),
-        [
-            'nome' => ['required', 'max:60', 'min:2'],
-            'cnpj' => 'required',
-        ],
+        $data = $request->all();
 
-        [
-            // 'required' => 'O :attribute é obrigatório',
-        ],
-        [
-            'nome' => 'Nome',
-            'cnpj' => 'CNPJ'
-        ]
-        );
+        
 
-        if ($validationData->fails()) {
-            return response()->json([
-                'inserted' => false,
-                'msg' => 'Erro de validação',
-                'errors' =>  $validationData->errors()
-            ], Response::HTTP_BAD_REQUEST);
+
+        try {
+            $created = $this->model->create($data);
+            return response()->json($created,Response::HTTP_CREATED);
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'message' => env('APP_DEBUG') == true ? 'Error ao inserir: ' . $e->getMessage() : 'Error ao inserir'
+                ],
+                Response::HTTP_BAD_REQUEST
+            );
         }
-        return parent::store($request);
     }
-
 
     public function index()
     {
