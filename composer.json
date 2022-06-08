@@ -13,7 +13,8 @@
         "laravel/tinker": "^2.5",
         "nfephp-org/sped-da": "dev-master",
         "nfephp-org/sped-mdfe": "dev-master",
-        "tymon/jwt-auth": "^1.0"
+        "tymon/jwt-auth": "^1.0",
+        "webpatser/laravel-uuid": "^3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
