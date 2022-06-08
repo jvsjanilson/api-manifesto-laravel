@@ -20,8 +20,13 @@ class UsersSeeder extends Seeder
                 'name' => 'Janilson Varela',
                 'email' => 'janilsonjvs@gmail.com',
                 'password' => Hash::make('janilson'),
+            ],
+            [
+                'name' => 'Visitante',
+                'email' => 'visitante@gmail.com',
+                'password' => Hash::make('janilson'),
+            ],
 
-            ]
         ]);
     }
 }

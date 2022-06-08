@@ -18,7 +18,15 @@ class UserEmpresaSeeder extends Seeder
             [
                 'user_id' => 1,
                 'empresa_id' => 1,
-            ]
+            ],
+            [
+                'user_id' => 1,
+                'empresa_id' => 2,
+            ],
+            [
+                'user_id' => 2,
+                'empresa_id' => 1,
+            ],
         ]);
     }
 }

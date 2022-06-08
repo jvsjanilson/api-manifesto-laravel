@@ -35,6 +35,7 @@ class CreateEmpresasTable extends Migration
             $table->string('image')->nullable();
             $table->smallInteger('ambiente')->nullable()->default(2);
             $table->boolean('ativo')->default($value=1);
+            $table->uuid('uuid')->nullble()->default($value='');
             $table->timestamps();
         });
     }

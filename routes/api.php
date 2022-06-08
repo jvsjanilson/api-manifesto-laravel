@@ -55,12 +55,14 @@ Route::group([
 
 });
 
+Route::get('users/empresas/{email}', [EmpresaController::class,'empresas']);
 
-Route::group(['middleware' => ['apiJWT']], function(){
+// Route::group(['middleware' => ['apiJWT']], function(){
     Route::resource('estados', EstadoController::class);
     Route::resource('paises', PaisController::class);
     Route::resource('municipios', MunicipioController::class);
     Route::resource('empresas', EmpresaController::class);
+
 
     Route::resource('autorizacaos', ManifestoAutorizacaoController::class)->only([
         'store',
@@ -150,7 +152,7 @@ Route::group(['middleware' => ['apiJWT']], function(){
     Route::delete('manifestos/{manifesto}', [ManifestoController::class,'destroy']);
 
 
-});
+// });
 Route::get('mdfes/servico/status/{empresa}', [MDFeController::class, 'statusServico']);
 Route::get('mdfes/servico/envia/{id}', [MDFeController::class, 'envia']);
 Route::get('mdfes/servico/damdfe/{id}', [MDFeController::class, 'damdfe']);
